@@ -1,0 +1,9 @@
+package main;
+
+public class constant {
+
+	public final static String Title = "Battle Rain";
+	public final static int FWidth = 1280;
+	public final static int FHeight = 720;
+	
+}

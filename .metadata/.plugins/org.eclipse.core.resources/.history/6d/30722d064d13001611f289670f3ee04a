@@ -1,5 +1,0 @@
-package view;
-
-public class display extends JFrame implement Runnable{
-
-}

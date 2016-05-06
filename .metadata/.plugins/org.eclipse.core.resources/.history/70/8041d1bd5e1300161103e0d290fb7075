@@ -1,0 +1,5 @@
+package display_Set;
+
+public class Wait extends display_Set {
+
+}

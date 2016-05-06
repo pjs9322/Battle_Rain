@@ -1,0 +1,20 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+
+import javax.swing.JPanel;
+
+public abstract class display_Set extends JPanel {
+	private static final long serialVersionUID = 1L;
+	
+	public Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+	public void paint(Graphics g) {					// 프레임이 생성되면 자동으로 그림이 그려진다.
+		this.draw(g);
+	}
+	
+	public abstract void draw(Graphics g);
+	
+}
