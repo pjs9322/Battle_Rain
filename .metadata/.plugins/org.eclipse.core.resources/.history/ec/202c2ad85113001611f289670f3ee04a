@@ -1,0 +1,7 @@
+package display_Set;
+
+import javax.swing.JFrame;
+
+public class display_Set extends JFrame {
+
+}

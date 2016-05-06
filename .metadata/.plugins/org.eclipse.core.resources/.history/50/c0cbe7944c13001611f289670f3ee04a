@@ -1,0 +1,13 @@
+package main;
+
+import java.awt.Frame;
+
+public class main {
+	
+	public static Frame display;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		display = new Frame();
+	}
+}

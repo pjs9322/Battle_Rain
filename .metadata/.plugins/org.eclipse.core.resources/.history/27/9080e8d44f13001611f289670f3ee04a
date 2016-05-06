@@ -1,0 +1,36 @@
+package view;
+
+import javax.swing.JFrame;
+
+public class display extends JFrame implements Runnable {
+	private static final long serialVersionUID = 1L;
+
+	public static enum STATE {
+		Login, Wait, Room_Host, Room_Member, Playing
+	}
+	
+	private STATE state = STATE.Login;
+	
+	public display() {
+		// 积己磊 累己
+		
+		this.setVisible(true);
+		// 啊矫拳 可记 
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public STATE getState() {
+		return state;
+	}
+
+	public void setState(STATE state) {
+		this.state = state;
+	}
+
+}

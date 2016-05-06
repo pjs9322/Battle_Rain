@@ -1,0 +1,36 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.JPanel;
+
+public class display_Set extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	private Character character; // 낚싯바늘, 물고기, 게임 속도, 아이템
+
+	private Image buff_Image; // 더블 버퍼링용 버퍼 이미지
+	private Graphics buff_Graphics; // 더블 버퍼링용 버퍼 그래픽
+
+	public void paint(Graphics g) { // 프레임이 생성되면 자동으로 그림이 그려진다.
+		buff_Image = createImage(1280, 720);
+		buff_Graphics = buff_Image.getGraphics(); // 버퍼의 그래픽 객체를 얻기
+		update(g); // 그래픽 업데이트
+	}
+
+	public void update(Graphics g) {		// 바로 이미지를 띄우면 로딩으로 인한 깜박임이 발생하여 더블 버퍼링 기법
+		Draw_Display();						// 그림 데이터를 전송
+		g.drawImage(buff_Image, 0, 0, this); // 그림 데이터의 전송이 완료될 때 기존 이미지와 교체한다.
+	}
+
+	public void Draw_Display() { // 실제로 그림들을 그릴 부분
+		buffg.clearRect(0, 0, 1280, 720);	// 프레임 전체 사이즈만큼의 전체 이미지 지우기
+		this.draw();						// 새로 그린다.
+	}
+
+	private void draw() {
+		// TODO Auto-generated method stub
+		
+	}
+}

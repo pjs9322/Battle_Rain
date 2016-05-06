@@ -1,0 +1,7 @@
+package main;
+
+import java.awt.Frame;
+
+public class main {
+	Frame frame = new Frame();
+}
