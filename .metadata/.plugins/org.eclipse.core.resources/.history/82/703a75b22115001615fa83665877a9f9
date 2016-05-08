@@ -1,0 +1,9 @@
+package control;
+
+
+public class control {
+	public void user_Login(String userID, String password) {
+		System.out.println(userID);
+		System.out.print(password);
+	}
+}

@@ -1,0 +1,49 @@
+package display_Set;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import main.constant;
+
+public class Login extends display_Set {
+	private static final long serialVersionUID = 1L;
+	
+	private TextField userText = new TextField(20);
+	private TextField passwordText = new TextField(20);
+	private Button loginButton = new Button("Login");
+	
+	public Login() {
+		this.add(userText);
+		this.add(passwordText);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		this.label_Set();
+		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 770, 474, this);
+	}
+
+	public void label_Set() {
+		this.userText.setLocation(436, 473);
+		this.userText.setSize(335, 47);
+		this.userText.setFont(new Font("userID", 0, 36));
+		
+		this.passwordText.setLocation(436, 534);
+		this.passwordText.setSize(335, 47);
+		this.passwordText.setFont(new Font("passWord", 0, 36));
+		this.passwordText.setEchoChar('●');
+	}
+	
+	loginButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            String data = "아이디 : " + userText.getText();
+            data += ", 패스워드 : " + passwordText.getText();
+            statusLabel.setText(data);
+        }
+    }
+}

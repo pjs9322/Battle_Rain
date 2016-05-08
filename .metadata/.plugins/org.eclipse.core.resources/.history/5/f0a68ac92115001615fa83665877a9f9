@@ -1,0 +1,13 @@
+package control;
+
+
+public class control {
+	public void user_Login(String userID, String password) {
+		System.out.println(userID + " " + password);
+	}
+
+	public void user_Join(String text, String text2) {
+		// TODO Auto-generated method stub
+		
+	}
+}

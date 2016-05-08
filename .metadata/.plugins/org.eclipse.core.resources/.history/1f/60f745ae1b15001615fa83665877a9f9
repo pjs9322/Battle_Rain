@@ -1,0 +1,31 @@
+package display_Set;
+
+import java.awt.Button;
+import java.awt.Graphics;
+
+public class Wait extends display_Set {
+	private static final long serialVersionUID = 1L;
+
+	private Button make_Room_Button = new Button("방 만들기");
+	private Button joinButton = new Button("방 검색");
+	
+	@Override
+	public void draw(Graphics g) {
+		
+	}
+
+	@Override
+	public void init_Parts() {
+		this.make_Room_Button.setLocation(770, 470);
+		this.make_Room_Button.setSize(120, 45);
+		this.make_Room_Button.addActionListener(actionListener);
+		this.make_Room_Button.setActionCommand("Make_Room");
+//		this.loginButton.setVisible(false);
+		
+		this.joinButton.setLocation(770, 530);
+		this.joinButton.setSize(120, 45);
+		this.joinButton.addActionListener(actionListener);
+		this.joinButton.setActionCommand("Join");
+//		this.loginButton.setVisible(false);
+	}
+}

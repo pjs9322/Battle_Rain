@@ -1,0 +1,9 @@
+package control;
+
+import java.util.Vector;
+
+public class control {
+	public void user_Login(Vector<String> user) {
+		System.out.print("ok");
+	}
+}

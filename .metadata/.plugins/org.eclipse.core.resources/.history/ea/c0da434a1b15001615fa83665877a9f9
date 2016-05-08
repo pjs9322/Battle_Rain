@@ -1,0 +1,52 @@
+package display_Set;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.TextField;
+
+public class Login extends display_Set {
+	private static final long serialVersionUID = 1L;
+	
+	private TextField userText = new TextField(20);
+	private TextField passwordText = new TextField(20);
+	private Button loginButton = new Button("로그인");
+	private Button joinButton = new Button("회원가입");
+	
+	public Login() {
+		this.add(userText);
+		this.add(passwordText);
+		this.add(loginButton);
+		this.add(joinButton);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+//		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+//		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 770, 474, this);
+	}
+
+	@Override
+	public void init_Parts() {
+		this.userText.setLocation(430, 470);
+		this.userText.setSize(330, 45);
+		this.userText.setFont(new Font("userID", 0, 36));
+		
+		this.passwordText.setLocation(430, 530);
+		this.passwordText.setSize(330, 45);
+		this.passwordText.setFont(new Font("passWord", 0, 36));
+		this.passwordText.setEchoChar('●');
+
+		this.loginButton.setLocation(770, 470);
+		this.loginButton.setSize(120, 45);
+		this.loginButton.addActionListener(actionListener);
+		this.loginButton.setActionCommand("Login");
+//		this.loginButton.setVisible(false);
+		
+		this.joinButton.setLocation(770, 530);
+		this.joinButton.setSize(120, 45);
+		this.joinButton.addActionListener(actionListener);
+		this.joinButton.setActionCommand("Join");
+//		this.loginButton.setVisible(false);
+	}
+}
