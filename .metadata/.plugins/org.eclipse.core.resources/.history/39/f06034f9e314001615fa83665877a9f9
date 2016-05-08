@@ -1,0 +1,36 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import javax.swing.JPanel;
+
+public abstract class display_Set extends JPanel {
+	private static final long serialVersionUID = 1L;
+	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+	public void paint(Graphics g) {
+		g.clearRect(0, 0, Constant.frameWidth, Constant.frameheight); // 초기화
+		this.draw(g);
+	}
+
+	public abstract void draw(Graphics g);
+	
+//
+//	public void paint(Graphics g) { // 프레임이 생성되면 자동으로 그림이 그려진다.
+//		buffImage = createImage(Constant.frameWidth, Constant.frameheight);
+//		buffg = buffImage.getGraphics(); // 버퍼의 그래픽 객체를 얻기
+//		update(g); // 그래픽 업데이트
+//	}
+//
+//	public void update(Graphics g) { // 바로 이미지를 띄우면 로딩으로 인한 깜박임이 발생하여 더블 버퍼링 기법
+//		Draw_Char(); // 그림 데이터를 전송
+//		g.drawImage(buffImage, 0, 0, this); // 그림 데이터의 전송이 완료될 때 기존 이미지와 교체한다.
+//	}
+//
+//	public void Draw_Char() { // 실제로 그림들을 그릴 부분
+//		buffg.clearRect(0, 0, Constant.frameWidth, Constant.frameheight); // 초기화
+//		backgraound.draw(buffg); // 배경 그림
+//		character.draw(buffg); // 낚싯바늘, 물고기 그림
+//		ui.draw(buffg, state); // 시간, 점수, 
+//	}
+}

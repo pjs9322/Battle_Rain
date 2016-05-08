@@ -1,0 +1,31 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.Label;
+import java.awt.TextField;
+
+import main.constant;
+
+public class Login extends display_Set {
+	private static final long serialVersionUID = 1L;
+	
+	private Label namelabel = new Label("ID", Label.RIGHT);
+	private Label passwordLabel = new Label("PW", Label.CENTER);
+	private TextField userText = new TextField(20);
+	private TextField passwordText = new TextField(20);
+	
+	public Login() {
+		passwordText.setEchoChar('¡Ü');
+		userText.setSize(300, 300);
+		
+//		this.add(namelabel);
+		this.add(userText);
+//		this.add(passwordLabel);
+		this.add(passwordText);
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+	}
+}
