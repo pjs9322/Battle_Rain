@@ -1,0 +1,19 @@
+package display_Sub;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Sub_Frame extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private ActionListener actionListener;
+	
+	public Sub_Frame(JPanel subPanel, String name) {
+		this.add(subPanel);
+		this.setTitle(name);
+		
+		this.setSize(250, 120);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setAlwaysOnTop(true);
+	}
+}

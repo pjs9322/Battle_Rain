@@ -1,0 +1,8 @@
+package display_Sub;
+
+import javax.swing.JPanel;
+
+public class Room_Search extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+}

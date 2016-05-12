@@ -1,0 +1,35 @@
+package control;
+
+import main.constant.STATE;
+
+public class control {
+	
+	private STATE next_State = STATE.Nop;
+	
+	public boolean user_Login(String userID, String password) {
+		if (userID.endsWith("pjs9322") && password.equals("1111")) {
+			this.setNext_State(STATE.Wait);
+			return true;
+		}
+		return false;
+	}
+
+	public void user_Join(String userID, String password) {
+		System.out.println(userID + " " + password);
+	}
+
+	public boolean make_Room(boolean complete) {
+		while(!complete) {
+			
+		}
+		return true;
+	}
+
+	public STATE getNext_State() {
+		return next_State;
+	}
+
+	public void setNext_State(STATE next_State) {
+		this.next_State = next_State;
+	}
+}

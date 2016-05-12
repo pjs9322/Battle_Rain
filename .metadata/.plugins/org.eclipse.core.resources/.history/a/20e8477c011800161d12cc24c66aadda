@@ -1,0 +1,27 @@
+package display_Sub;
+
+import java.awt.Graphics;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Room_Make extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+	
+	public boolean complete = false;
+	
+	public Room_Make() {
+		super(control);
+	}
+
+
+	public void Make() {
+		
+	}
+	
+	public void Cancel() {
+		
+	}
+}

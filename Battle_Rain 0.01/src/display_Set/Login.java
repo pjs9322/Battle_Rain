@@ -19,6 +19,7 @@ public class Login extends display_Set {
 		this.add(password);
 		this.add(login_Button);
 		this.add(join_Button);
+		
 	}
 
 	@Override
@@ -28,7 +29,7 @@ public class Login extends display_Set {
 	}
 
 	@Override
-	public void init_Parts() {
+	public void init_Parts() {		
 		this.userID.setLocation(430, 470);
 		this.userID.setSize(330, 45);
 		this.userID.setFont(new Font("userID", 0, 36));
@@ -50,12 +51,10 @@ public class Login extends display_Set {
 	}
 
 	public void user_Login() {
-		if (control.user_Login(userID.getText(), password.getText())) {
-			state_code = 2;
-		}
+		this.control.user_Login(userID.getText(), password.getText());
 	}
 
 	public void user_Join() {
-		control.user_Join(userID.getText(), password.getText());
+		this.control.user_Join(userID.getText(), password.getText());
 	}
 }

@@ -1,0 +1,51 @@
+package display_Sub;
+
+import java.awt.Graphics;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Room_Make extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+
+	private JLabel roomName = new JLabel("规 力格");
+	
+	private JPanel panel = new JPanel();
+	public JTextField tfR = new JTextField(15);
+	  
+	private JButton make_Button = new JButton("积己");
+	private JButton cancel_Button = new JButton("秒家");
+	
+	public boolean complete = false;
+	
+	public Room_Make() {
+		this.add(panel);
+		this.panel.add(roomName);
+		this.panel.add(tfR);
+		this.panel.add(make_Button);
+		this.panel.add(cancel_Button);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		
+	}
+
+	@Override
+	public void init_Parts() {
+		jbOK.addActionListener(actionListener);
+		jbOK.setActionCommand("Make");
+		jbCan.addActionListener(actionListener);
+		jbCan.setActionCommand("Cancel");
+	}
+
+	public void Make() {
+		
+	}
+	
+	public void Cancel() {
+		
+	}
+}

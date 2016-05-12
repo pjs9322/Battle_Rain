@@ -1,0 +1,60 @@
+package display_Sub;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Room_Make extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private ActionListener actionListener;
+
+	JPanel panel = new JPanel();
+	JLabel roomName = new JLabel("规 力格");
+	
+	JTextField tfR = new JTextField(3);
+	  
+	JButton jbOK = new JButton("积己");
+	JButton jbCan = new JButton("秒家");
+	
+	public boolean exist = true;
+	
+	public Room_Make() {
+		this.actionListener = new ActionHandler();
+		this.setTitle("规 父甸扁");
+		
+		this.panel.add(roomName);
+		this.panel.add(tfR);
+		this.panel.add(jbOK, BorderLayout.SOUTH);
+		this.panel.add(jbCan);
+		this.add(panel);
+		
+		jbOK.addActionListener(actionListener);
+		jbOK.setActionCommand("Make");
+		jbCan.addActionListener(actionListener);
+		jbCan.setActionCommand("Cancel");
+			 
+		this.setSize(250, 120);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	}
+  
+	private class ActionHandler implements ActionListener {
+	@Override
+		public void actionPerformed(ActionEvent e) {
+			switch (e.getActionCommand()) {
+			case "Make":
+				dispose();
+				break;
+			case "Cancel":
+				dispose();
+				break;
+			}
+		}
+	}
+}

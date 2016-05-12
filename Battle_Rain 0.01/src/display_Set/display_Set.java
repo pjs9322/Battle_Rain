@@ -15,22 +15,18 @@ import control.control;
 
 public abstract class display_Set extends JPanel {
 	private static final long serialVersionUID = 1L;
-	
 	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
+	
 	protected ActionListener actionListener;
 	protected control control;
 
-	private JPanel view;
+	private display_Set view_style;
 	private Image buff_Image;											// 더블 버퍼링용 버퍼 이미지
 	private Graphics buff_G;											// 더블 버퍼링용 버퍼 그래픽
 	
-	protected int state_code = 0;
-	public int getState_code() { return state_code; }
-	
 	public display_Set() {
-		actionListener = new ActionHandler();
-		control = new control();
-		view = this;
+		this.actionListener = new ActionHandler();
+		this.view_style = this;
 	}
 
 	public void paint(Graphics g) {
@@ -49,14 +45,15 @@ public abstract class display_Set extends JPanel {
 		this.draw(buff_G);												// 외부 이미지 그림
 		this.init_Parts();												// 구성요소 추가
 	}
-	
+
 	public abstract void draw(Graphics g);
 	public abstract void init_Parts();
+	public void init_Control(control control) {this.control = control;}
 
-	class ActionHandler implements ActionListener {
+	private class ActionHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				invoke(view, e.getActionCommand(), null);
+				invoke(view_style, e.getActionCommand(), null);
 		}
 	}
 
