@@ -63,9 +63,7 @@ public class Sub_Frame extends JFrame {
 					} else {
 						return method.invoke(obj, parameter);
 					}
-				} catch(IllegalAccessException | InvocationTargetException e) {
-					e.printStackTrace();
-				}
+				} catch(IllegalAccessException | InvocationTargetException e) {}
 			}
 		}
 		return null;

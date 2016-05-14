@@ -15,7 +15,7 @@ public class display extends JFrame implements Runnable {
 	
 	private control control;
 
-	private STATE current_State = STATE.Nop;
+	private STATE current_State;
 	private STATE state = STATE.Login;
 	public void setState(STATE state) {	this.state = state; }
 	
@@ -39,15 +39,13 @@ public class display extends JFrame implements Runnable {
 		        // 현재 state 값에 따라 Next_Display 클래스를 생성
 		        if (current_State != state) {
 			        Current_Display = (display_Set) Next_Display.newInstance();
-			        Current_Display.init_Control(this.control);
+			        Current_Display.init_View(control);
 			        current_State = state;
 					this.add(Current_Display);
 					this.setVisible(true);
 			        // state_code의 값이 변경될 경우 (Current_Display와 Next_Display가 달라지는 경우)에 덮어쓴다.
 		        }
-		        if (this.control.getNext_State() == STATE.Nop) {
-		        	this.control.setNext_State(this.state);
-		        } else if (this.control.getNext_State() != this.state) {
+		        if (this.control.getNext_State() != this.state) {
 		        	this.setState(this.control.getNext_State());
 		        	this.remove(Current_Display);
 			        // Current_Display 내부 동작으로 state 변경을 감지할 경우 변경한다.
@@ -57,8 +55,6 @@ public class display extends JFrame implements Runnable {
 				repaint();
 				// 갱신된 데이터에 따라 이미지 새로 작성
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {}
 	}
 }

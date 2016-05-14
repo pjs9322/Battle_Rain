@@ -1,0 +1,26 @@
+package display_Set;
+
+import java.awt.Button;
+import java.awt.Graphics;
+import java.awt.TextField;
+
+public class Playing extends display_Set {
+	private static final long serialVersionUID = 1L;
+
+	private JLabel playing = new TextField(20);
+	
+	public Playing() {
+		super();
+		this.add(playing);
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		
+	}
+
+	@Override
+	public void init_Parts() {
+		
+	}
+}

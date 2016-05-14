@@ -48,7 +48,7 @@ public abstract class display_Set extends JPanel {
 
 	public abstract void draw(Graphics g);
 	public abstract void init_Parts();
-	public void init_Control(control control) {this.control = control;}
+	public void init_View(control control) {this.control = control;}
 
 	private class ActionHandler implements ActionListener {
 		@Override
@@ -68,9 +68,7 @@ public abstract class display_Set extends JPanel {
 					} else {
 						return method.invoke(obj, parameter);
 					}
-				} catch(IllegalAccessException | InvocationTargetException e) {
-					e.printStackTrace();
-				}
+				} catch(IllegalAccessException | InvocationTargetException e) {}
 			}
 		}
 		return null;

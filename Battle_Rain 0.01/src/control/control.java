@@ -4,7 +4,7 @@ import main.constant.STATE;
 
 public class control {
 	
-	private STATE next_State = STATE.Nop;
+	private STATE next_State = STATE.Login;
 	public STATE getNext_State() { return next_State; }
 	public void setNext_State(STATE state) { this.next_State = state; }
 	
@@ -24,5 +24,9 @@ public class control {
 
 	public void Room_Make() {
 		this.next_State = STATE.Room;
+	}
+	
+	public void game_Start() {
+		this.next_State = STATE.Playing;
 	}
 }
