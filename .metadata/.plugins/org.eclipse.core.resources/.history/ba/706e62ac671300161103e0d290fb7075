@@ -1,5 +1,0 @@
-package display_Set;
-
-public class Room extends display_Set {
-
-}

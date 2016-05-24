@@ -1,0 +1,11 @@
+package model;
+
+public class Room_Model {
+	
+
+	public boolean Room_Make(String roomName) {
+		return false;
+		// TODO Auto-generated method stub
+	}
+
+}

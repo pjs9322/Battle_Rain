@@ -1,0 +1,10 @@
+package display_Sub;
+
+public class Alart_Mass extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+
+	public Alart_Mass(String massage) {
+		super(null, 250, 100);
+	}
+
+}

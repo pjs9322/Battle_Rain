@@ -1,33 +1,49 @@
 package display_Sub;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import control.control;
 
 public class Room_Search extends Sub_Frame {
 	private static final long serialVersionUID = 1L;
-	
-	public boolean complete = false;
+
+	private JLabel roomName = new JLabel("规 力格");
+	private JTextField roomText = new JTextField(15);
+
+	private JButton ok_Button = new JButton("涝厘");
+	private JButton cancel_Button = new JButton("秒家");
 	
 	public Room_Search(control control) {
-		super(control);
-
+		super(control, 250, 110);
 		this.setTitle("规 茫扁");
-		this.Sub_Lable.setName("规 力格");
+		
+		this.panel_NORTH.add(roomName);
+		this.panel_NORTH.add(roomText);
 
-		this.ok_Button.setText("涝厘");
+		this.panel_SOUTH.add(ok_Button);
+		this.panel_SOUTH.add(cancel_Button);
+		
 		this.ok_Button.addActionListener(actionListener);
 		this.ok_Button.setActionCommand("Search");
 		
-		this.cancel_Button.setText("秒家");
 		this.cancel_Button.addActionListener(actionListener);
 		this.cancel_Button.setActionCommand("Cancel");
 	}
 
 
 	public void Search() {
-		
+		String alart = this.control.Room_Search(this.roomText.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(null, alart, "版绊", 0);
+		} else {
+			this.dispose();
+		}
 	}
 	
 	public void Cancel() {
-		
+		this.dispose();
 	}
 }

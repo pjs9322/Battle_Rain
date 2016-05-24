@@ -1,0 +1,35 @@
+package display_Sub;
+
+import control.control;
+
+public class Room_Search extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+	
+	public boolean complete = false;
+	
+	public Room_Search(control control) {
+		super(control, 250, 110);
+
+		this.setTitle("规 茫扁");
+		this.Sub_Lable.setText("规 力格");
+
+		this.ok_Button.setText("涝厘");
+		this.ok_Button.addActionListener(actionListener);
+		this.ok_Button.setActionCommand("Search");
+		
+		this.cancel_Button.setText("秒家");
+		this.cancel_Button.addActionListener(actionListener);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+
+
+	public void Search() {
+		if (this.control.Room_Search(this.Sub_Lable.getText())) {
+			this.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.dispose();
+	}
+}

@@ -1,0 +1,47 @@
+package model;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.InetAddress;
+import java.util.Vector;
+
+public class Room_Model extends Model implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private String roomName;
+	private String host_IP;
+
+	@SuppressWarnings("unchecked")
+	public boolean Room_Make(String roomName) throws ClassNotFoundException, IOException {
+		
+		Vector<Room_Model> room_List = (Vector<Room_Model>) this.read("rsc\\data_File\\room_List");
+
+		this.roomName = roomName;
+		this.host_IP = InetAddress.getLocalHost().getHostAddress();
+		
+		if (roomName == null) {
+			System.out.println("规 力格阑 涝仿秦林技夸");
+			return false;
+		} else {
+			for (int i=0; i<room_List.size(); i++) {
+				if (this.host_IP.equals(room_List.get(i).host_IP)) {
+					room_List.remove(i);
+				}
+			}
+			for (Room_Model room: room_List) {
+				if (this.roomName.equals(room.roomName)) {
+					System.out.println("吝汗等 规 力格涝聪促.");
+					return false;
+				}
+			}
+			room_List.add(this);
+			this.save("rsc\\data_File\\room_List", room_List);
+			return true;
+		}
+	}
+
+	public boolean Room_Search(String roomName2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

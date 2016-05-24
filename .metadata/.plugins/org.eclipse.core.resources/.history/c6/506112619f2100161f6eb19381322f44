@@ -1,0 +1,40 @@
+package display_Sub;
+
+import javax.swing.JOptionPane;
+
+import control.control;
+
+public class Room_Search extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+	
+	public boolean complete = false;
+	
+	public Room_Search(control control) {
+		super(control, 250, 110);
+
+		this.setTitle("방 찾기");
+		this.Sub_Lable.setText("방 제목");
+
+		this.ok_Button.setText("입장");
+		this.ok_Button.addActionListener(actionListener);
+		this.ok_Button.setActionCommand("Search");
+		
+		this.cancel_Button.setText("취소");
+		this.cancel_Button.addActionListener(actionListener);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+
+
+	public void Search() {
+		String alart = this.control.Room_Search(this.Sub_Text.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(null, alart, "경고", 0);
+		} else {
+			this.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.dispose();
+	}
+}

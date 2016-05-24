@@ -1,0 +1,7 @@
+1463378777279	Rename resource 'data_file'
+1463378876900	Encapsulate field 'userID'
+1463378880223	Encapsulate field 'password'
+1463380701059	Rename compilation unit 'Room.java'
+1463380711698	Rename type 'User'
+1463548896314	Encapsulate field 'roomName'
+1463552590285	Delete element

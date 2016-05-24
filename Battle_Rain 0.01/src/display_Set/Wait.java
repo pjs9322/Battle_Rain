@@ -37,7 +37,7 @@ public class Wait extends display_Set {
 		this.search_Room_Button.setActionCommand("search_Room");
 		
 		this.logout_Button.addActionListener(actionListener);
-		this.logout_Button.setActionCommand("user_logout");
+		this.logout_Button.setActionCommand("user_Logout");
 	}
 	
 	public void make_Room() {

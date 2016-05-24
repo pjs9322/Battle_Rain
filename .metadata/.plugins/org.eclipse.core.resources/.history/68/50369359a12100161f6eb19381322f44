@@ -1,0 +1,16 @@
+package display_Sub;
+
+import javax.swing.JOptionPane;
+
+public class Alart_Mass extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+
+	public Alart_Mass(String alart) {
+		super(null, 0, 0);
+
+		this.setVisible(false);
+		JOptionPane.showMessageDialog(null, alart, "°æ°í", 0);
+		
+		this.dispose();
+	}
+}

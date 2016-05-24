@@ -1,7 +1,0 @@
-package control;
-
-public class control {
-	public void user_Login() {
-		System.out.print("ok");
-	}
-}

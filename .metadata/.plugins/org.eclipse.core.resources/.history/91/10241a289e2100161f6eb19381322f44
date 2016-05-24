@@ -1,0 +1,78 @@
+package display_Sub;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import control.control;
+
+public class User_Join extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+	
+	public boolean complete = false;
+
+	private JPanel panel01 = new JPanel();
+	private JPanel panel02 = new JPanel();
+	private JPanel panel03 = new JPanel();
+	
+	private JPanel panel_NORTH = new JPanel();
+	private JPanel panel_SOUTH = new JPanel();
+
+	private JLabel userID = new JLabel("　　　ID");
+	private JLabel userPW = new JLabel("패스워드");
+	private JLabel userName = new JLabel("　닉네임");
+	
+	private JTextField textID = new JTextField(15);
+	private JTextField textPW = new JTextField(15);
+	private JTextField textName = new JTextField(15);
+
+	private JButton ok_Button = new JButton("가입");
+	private JButton cancel_Button = new JButton("취소");
+	
+	public User_Join(control control) {
+		super(control,  300, 250);
+		this.setTitle("회원가입");
+
+		this.panel01.add(userID);
+		this.panel01.add(textID);
+		
+		this.panel02.add(userPW);
+		this.panel02.add(textPW);
+
+		this.panel03.add(userName);
+		this.panel03.add(textName);
+		
+		this.panel_SOUTH.add(ok_Button);
+		this.panel_SOUTH.add(cancel_Button);
+
+		this.panel_NORTH.add(panel01, BorderLayout.NORTH);
+		this.panel_NORTH.add(panel02, BorderLayout.CENTER);
+		this.panel_NORTH.add(panel03, BorderLayout.SOUTH);
+		this.add(panel_NORTH);
+		this.add(panel_SOUTH, BorderLayout.SOUTH);
+		
+		this.ok_Button.addActionListener(actionListener);
+		this.ok_Button.setActionCommand("Search");
+		
+		this.cancel_Button.addActionListener(actionListener);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+
+
+	public void Search() {
+		String alart = this.control.user_Join(textID.getText(), textPW.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(null, alart, "경고", 0);
+		} else {
+			this.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.dispose();
+	}
+}
