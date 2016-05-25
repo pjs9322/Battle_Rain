@@ -39,7 +39,7 @@ public class Room_Make extends Sub_Frame {
 	public void Make() {
 		String alart = this.control.Room_Make(this.roomText.getText());
 		if (alart != null) {
-			JOptionPane.showMessageDialog(null, alart, "경고", 0);
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
 		} else {
 			this.dispose();
 		}

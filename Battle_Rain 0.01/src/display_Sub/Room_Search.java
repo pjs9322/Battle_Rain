@@ -37,7 +37,7 @@ public class Room_Search extends Sub_Frame {
 	public void Search() {
 		String alart = this.control.Room_Search(this.roomText.getText());
 		if (alart != null) {
-			JOptionPane.showMessageDialog(null, alart, "경고", 0);
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
 		} else {
 			this.dispose();
 		}

@@ -30,13 +30,11 @@ public class Wait extends display_Set {
 
 	@Override
 	public void init_Parts() {
-		this.make_Room_Button.addActionListener(actionListener);
+		this.make_Room_Button.addActionListener(this);
 		this.make_Room_Button.setActionCommand("make_Room");
-
-		this.search_Room_Button.addActionListener(actionListener);
+		this.search_Room_Button.addActionListener(this);
 		this.search_Room_Button.setActionCommand("search_Room");
-		
-		this.logout_Button.addActionListener(actionListener);
+		this.logout_Button.addActionListener(this);
 		this.logout_Button.setActionCommand("user_Logout");
 	}
 	

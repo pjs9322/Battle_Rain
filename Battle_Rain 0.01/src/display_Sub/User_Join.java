@@ -62,11 +62,14 @@ public class User_Join extends Sub_Frame {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void Join() {
 		String alart = this.control.user_Join(textID.getText(), textPW.getText());
-		this.dispose();
 		if (alart != null) {
-			JOptionPane.showMessageDialog(null, alart, "경고", 0);
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
+		} else {
+			JOptionPane.showMessageDialog(this, "회원 가입이 완료되었습니다.", "가입성공", 0);
+			this.dispose();
 		}
 	}
 	

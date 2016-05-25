@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import main.constant;
 import control.control;
 
-public abstract class display_Set extends JPanel {
+public abstract class display_Set extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
 	
@@ -21,11 +21,11 @@ public abstract class display_Set extends JPanel {
 	protected control control;
 
 	private display_Set view_style;
+
 	private Image buff_Image;											// 더블 버퍼링용 버퍼 이미지
 	private Graphics buff_G;											// 더블 버퍼링용 버퍼 그래픽
-	
+
 	public display_Set() {
-		this.actionListener = new ActionHandler();
 		this.view_style = this;
 	}
 
@@ -50,11 +50,9 @@ public abstract class display_Set extends JPanel {
 	public abstract void init_Parts();
 	public void init_View(control control) {this.control = control;}
 
-	private class ActionHandler implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-				invoke(view_style, e.getActionCommand(), null);
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+			invoke(view_style, e.getActionCommand(), null);
 	}
 
 	public static Object invoke(Object obj, String methodName, Object[] parameter) {

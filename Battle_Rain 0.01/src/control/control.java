@@ -1,6 +1,8 @@
 package control;
 
+import java.awt.Label;
 import java.io.IOException;
+import java.util.Vector;
 
 import main.constant.STATE;
 import model.Room_Model;
@@ -10,10 +12,13 @@ public class control {
 
 	private Room_Model room;
 	private User_Model user;
+
+	private Vector<Label> word_List;
+	public Vector<Label> getWord_List() { return word_List; }
 	
 	private STATE next_State = STATE.Login;
 	public STATE getNext_State() { return next_State; }
-	public void setNext_State(STATE state) { this.next_State = state; }
+//	public void setNext_State(STATE state) { this.next_State = state; }
 	
 	public control() {
 		this.room = new Room_Model();
@@ -75,4 +80,23 @@ public class control {
 		this.next_State = STATE.Playing;
 	}
 	
+	public void make_Word() {
+		word_List = new Vector<Label>();
+		
+		this.word_List.add(new Label("별"));
+		this.word_List.add(new Label("달"));
+		this.word_List.add(new Label("해"));
+		this.word_List.add(new Label("나무"));
+	}
+	
+	
+	public Label insert_Word(String text) {
+		for (Label word: word_List) {
+			if (word.getText().equals(text)) {
+				word_List.remove(word);
+				return word;
+			}
+		}
+		return null;
+	}	
 }

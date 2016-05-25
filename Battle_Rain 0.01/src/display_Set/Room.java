@@ -20,7 +20,7 @@ public class Room extends display_Set {
 
 	@Override
 	public void init_Parts() {
-		this.start_Button.addActionListener(actionListener);
+		this.start_Button.addActionListener(this);
 		this.start_Button.setActionCommand("game_Start");
 	}
 	

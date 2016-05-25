@@ -1,5 +1,0 @@
-package display_Sub;
-
-public class Alart_Mass extends Sub_Frame {
-
-}

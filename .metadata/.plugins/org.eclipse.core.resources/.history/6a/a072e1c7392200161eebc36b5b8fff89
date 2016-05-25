@@ -1,0 +1,88 @@
+package control;
+
+import java.awt.Label;
+import java.io.IOException;
+import java.util.Vector;
+
+import main.constant.STATE;
+import model.Room_Model;
+import model.User_Model;
+
+public class control {
+
+	private Room_Model room;
+	private User_Model user;
+	
+	private STATE next_State = STATE.Login;
+	public STATE getNext_State() { return next_State; }
+	public void setNext_State(STATE state) { this.next_State = state; }
+	
+	public control() {
+		this.room = new Room_Model();
+		this.user = new User_Model();
+	}
+	
+	public String user_Login(String userID, String password) {
+		String alart = null;
+		try {
+			alart = this.user.user_Login(userID, password);
+			if (alart == null) {
+				this.next_State = STATE.Wait;
+			}
+		} catch (ClassNotFoundException | IOException e) {}
+		return alart;
+	}
+	
+	public void user_Logout() {
+		if (this.next_State.equals(STATE.Wait)) {
+			this.next_State = STATE.Login;
+		}
+	}
+
+	public String user_Join(String userID, String password) {
+		String alart = null;
+		try {
+			alart = this.user.user_Join(userID, password);
+		} catch (ClassNotFoundException | IOException e) {}
+		return alart;
+	}
+
+	public String Room_Make(String roomName) {
+		String alart = null;
+		if (this.next_State.equals(STATE.Wait)) {
+			try {
+				alart = this.room.Room_Make(roomName);
+				if (alart == null) {
+					this.next_State = STATE.Room;
+				}
+			} catch (ClassNotFoundException | IOException e) {}
+		}
+		return alart;
+	}
+	
+	public String Room_Search(String roomName) {
+		String alart = null;
+		if (this.next_State == STATE.Wait) {
+			try {
+				alart = this.room.Room_Search(roomName);
+				if (alart == null) {
+					this.next_State = STATE.Room;
+				}
+			} catch (ClassNotFoundException | IOException e) {}
+		}
+		return alart;
+	}
+	
+	public void game_Start() {
+		this.next_State = STATE.Playing;
+	}
+	public void insert_Word(Vector<Label> words, String string) {
+		for (Label word: words) {
+			if (this.texts.getText().equals(word.getText())) {
+				this.remove(word);
+				words.remove(word);
+			}
+		}
+	}
+	
+}

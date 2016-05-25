@@ -1,0 +1,63 @@
+package display_Set;
+
+import java.awt.Button;
+import java.awt.Graphics;
+import java.awt.Label;
+import java.awt.TextField;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Vector;
+
+public class Playing extends display_Set {
+	private static final long serialVersionUID = 1L;
+
+	private KeyHandler key; // 키보드 입력 이벤트 핸들러
+	
+	private Vector<Label> words;
+
+	private TextField texts = new TextField(40);
+	private Button insert_Button = new Button("입력");
+	
+	public Playing() {
+		super();
+		
+		this.key = new KeyHandler();
+		texts.addKeyListener(key);
+
+		this.control.make_Word();
+		
+		for (Label word: control.getWordList()) {
+			this.add(word);
+		}
+		
+		this.add(texts);
+		this.add(insert_Button);
+		
+	}
+	
+	@Override
+	public void draw(Graphics g) {}
+
+	@Override
+	public void init_Parts() {
+		
+		this.insert_Button.addActionListener(actionListener);
+		this.insert_Button.setActionCommand("insert_Word");
+	}
+	
+	public void insert_Word() {
+		words.remove(control.insert_Word(words, texts.getText()));
+		this.texts.setText(null);
+	}
+	
+	
+	class KeyHandler implements KeyListener {
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				texts.setText("");
+			}
+		}
+		public void keyReleased(KeyEvent e) {}
+		public void keyTyped(KeyEvent e) {}
+	}
+}

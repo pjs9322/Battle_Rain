@@ -14,7 +14,7 @@ public class display extends JFrame implements Runnable {
 	private Thread thread;
 	
 	private control control;
-
+	
 	private STATE current_State;
 	private STATE state = STATE.Login;
 	public void setState(STATE state) {	this.state = state; }
@@ -53,8 +53,6 @@ public class display extends JFrame implements Runnable {
 		        }
 				Thread.sleep(50);
 				// 50 millisecond (0.05sec) 주기 갱신
-				repaint();
-				// 갱신된 데이터에 따라 이미지 새로 작성
 			}
 		} catch (Exception e) {}
 	}
