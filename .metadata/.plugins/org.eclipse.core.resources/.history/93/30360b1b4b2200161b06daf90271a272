@@ -24,7 +24,9 @@ public class Wait extends display_Set {
 	}
 	
 	@Override
-	public void draw(Graphics g) {}
+	public void draw(Graphics g) {
+		
+	}
 
 	@Override
 	public void init_Parts() {

@@ -28,14 +28,16 @@ public class Login extends display_Set {
 	}
 
 	@Override
-	public void draw(Graphics g) {}
+	public void draw(Graphics g) {
+//		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+//		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 770, 474, this);
+	}
 
 	@Override
 	public void init_Parts() {		
 		this.userID.setLocation(430, 470);
 		this.userID.setSize(330, 45);
 		this.userID.setFont(new Font("userID", 0, 36));
-		this.userID.requestFocus();
 		
 		this.password.setLocation(430, 530);
 		this.password.setSize(330, 45);

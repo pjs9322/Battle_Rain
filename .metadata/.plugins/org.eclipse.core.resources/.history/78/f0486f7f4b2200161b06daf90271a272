@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Label;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.im.InputContext;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -33,6 +32,7 @@ public class Playing extends display_Set {
 		for (Label word: this.control.getWord_List()) {
 			this.add(word);
 		}
+		this.texts.requestFocus();
 	}
 	
 	@Override
@@ -40,12 +40,6 @@ public class Playing extends display_Set {
 
 	@Override
 	public void init_Parts() {
-		this.texts.requestFocus();
-		try {  
-	           InputContext inCtx = texts.getInputContext();  
-	           Character.Subset[] subset = { Character.UnicodeBlock.HANGUL_SYLLABLES };  
-	            inCtx.setCharacterSubsets( subset );  
-	        }catch (Exception x) { } 
 	}
 	
 	public void insert_Word() {
