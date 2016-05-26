@@ -1,0 +1,83 @@
+package display_Set;
+
+import java.awt.Font;
+import java.awt.Graphics;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import main.constant;
+import display_Sub.Alart_Mass;
+import display_Sub.User_Join;
+
+public class Login extends display_Set {
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField userID = new JTextField(15);
+	private JPasswordField password = new JPasswordField(15);
+	private JButton login_Button = new JButton(new ImageIcon(constant.L_I_Route[2]));
+	private JButton join_Button = new JButton(new ImageIcon(constant.L_I_Route[4]));
+
+	private Alart_Mass msg;
+	private User_Join join;
+	
+	public Login() {
+		super();
+		this.add(userID);
+		this.add(password);
+		this.add(login_Button);
+		this.add(join_Button);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 502, 450, this);
+	}
+
+	@Override
+	public void init_Parts() {		
+		this.userID.setBounds(615, 458, 150, 21);
+		this.userID.setBorder(null);
+		this.userID.requestFocus();
+		
+		this.password.setBounds(615, 483, 150, 21);
+		this.password.setBorder(null);
+
+		this.login_Button.setBounds(450, 550, 107, 36);
+		this.login_Button.setBorderPainted(false);
+		this.login_Button.addActionListener(this);
+		this.login_Button.setActionCommand("user_Login");
+
+		this.login_Button.setBounds(586, 550, 107, 36);
+		this.join_Button.setBorderPainted(false);
+		this.join_Button.addActionListener(this);
+		this.join_Button.setActionCommand("user_Join");
+	}
+
+	@SuppressWarnings("deprecation")
+	public void user_Login() {
+		String alart = this.control.user_Login(userID.getText(), password.getText());
+		if (alart != null) {
+			if (this.msg == null) {
+				this.msg = new Alart_Mass(alart);
+			} else if (!this.msg.isDisplayable()) {
+				this.msg = new Alart_Mass(alart);
+			} else if (!this.msg.isFocused()) {
+				this.msg.requestFocus();
+			}
+		}
+	}
+
+	public void user_Join() {
+		if (this.join == null) {
+			this.join = new User_Join(control);
+		} else if (!this.join.isDisplayable()) {
+			this.join = new User_Join(control);
+		} else if (!this.join.isFocused()) {
+			this.join.requestFocus();
+		}
+	}
+}

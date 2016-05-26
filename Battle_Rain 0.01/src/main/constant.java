@@ -11,7 +11,33 @@ public class constant {
 	public final static String V_Route = "display_Set.";
 
 	public final static String[] L_I_Route = {
-		"rsc/image/Login/시작_화면.gif",
-		"rsc/image/Login/로그인_버튼.gif"	
+		"rsc/image/Login/배경.gif",
+		"rsc/image/Login/ID입력창.gif",
+		"rsc/image/Login/로그인01.gif",
+		"rsc/image/Login/로그인02.gif",
+		"rsc/image/Login/회원가입01.gif",
+		"rsc/image/Login/회원가입02.gif",
+		"rsc/image/Login/종료01.gif",
+		"rsc/image/Login/종료02.gif"
+	};
+	
+	public final static String[] W_I_Route = {
+		"rsc/image/Wait/배경.gif",
+		"rsc/image/Wait/ID_대기방.gif",
+		"rsc/image/Wait/캐릭터리스트.gif",
+		"rsc/image/Wait/방만들기01.gif",
+		"rsc/image/Wait/방만들기02.gif",
+		"rsc/image/Wait/방.gif"
+	};
+	
+	public final static String[] C_I_Route = {
+		"rsc/image/Chara/캐릭터_다오.gif",
+		"rsc/image/Chara/캐릭터_디지니.gif",
+		"rsc/image/Chara/캐릭터_마리드.gif",
+		"rsc/image/Chara/캐릭터_모스.gif",
+		"rsc/image/Chara/캐릭터_배찌.gif",
+		"rsc/image/Chara/캐릭터_에띠.gif",
+		"rsc/image/Chara/캐릭터_우니.gif",
+		"rsc/image/Chara/캐릭터_캐피.gif"
 	};
 }

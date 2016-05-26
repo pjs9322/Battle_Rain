@@ -1,0 +1,103 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import main.constant;
+import display_Sub.Alart_Mass;
+import display_Sub.User_Join;
+
+public class Login extends display_Set {
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField userID = new JTextField(15);
+	private JPasswordField password = new JPasswordField(15);
+	private JButton login_Button = new JButton();
+	private JButton join_Button = new JButton(new ImageIcon(constant.L_I_Route[4]));
+	private JButton exit_Button = new JButton(new ImageIcon(constant.L_I_Route[6]));
+
+	private Alart_Mass msg;
+	private User_Join join;
+	
+	public Login() {
+		super();
+		this.add(userID);
+		this.add(password);
+		this.add(login_Button);
+		this.add(join_Button);;
+		this.add(exit_Button);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
+		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 502, 450, this);
+	}
+
+	@Override
+	public void init_Parts() {
+		this.userID.setBounds(615, 458, 150, 21);
+		this.userID.setBorder(null);
+		this.userID.registerKeyboardAction(this, "user_Login",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+		
+		this.password.setBounds(615, 483, 150, 21);
+		this.password.setBorder(null);
+		this.password.registerKeyboardAction(this, "user_Login",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+	
+		this.login_Button.setBounds(460, 540, 107, 36);
+		this.login_Button.setBorderPainted(false);
+		this.login_Button.setIcon(new ImageIcon(constant.L_I_Route[2]));
+		this.login_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[3]));
+		this.login_Button.setSelectedIcon(new ImageIcon(constant.L_I_Route[3]));
+		this.login_Button.addActionListener(this);
+		this.login_Button.setActionCommand("user_Login");
+
+		this.join_Button.setBounds(586, 540, 107, 36);
+		this.join_Button.setBorderPainted(false);
+		this.join_Button.setSelectedIcon(new ImageIcon(constant.L_I_Route[5]));
+		this.join_Button.addActionListener(this);
+		this.join_Button.setActionCommand("user_Join");
+		
+		this.exit_Button.setBounds(712, 540, 107, 36);
+		this.exit_Button.setSelectedIcon(new ImageIcon(constant.L_I_Route[7]));
+		this.exit_Button.setBorderPainted(false);
+		
+		this.login_Button.requestFocus();
+		this.join_Button.requestFocus();
+		this.exit_Button.requestFocus();
+		this.userID.requestFocus();
+	}
+
+	@SuppressWarnings("deprecation")
+	public void user_Login() {
+		String alart = this.control.user_Login(userID.getText(), password.getText());
+		if (alart != null) {
+			if (this.msg == null) {
+				this.msg = new Alart_Mass(alart);
+			} else if (!this.msg.isDisplayable()) {
+				this.msg = new Alart_Mass(alart);
+			} else if (!this.msg.isFocused()) {
+				this.msg.requestFocus();
+			}
+		}
+	}
+
+	public void user_Join() {
+		if (this.join == null) {
+			this.join = new User_Join(control);
+		} else if (!this.join.isDisplayable()) {
+			this.join = new User_Join(control);
+		} else if (!this.join.isFocused()) {
+			this.join.requestFocus();
+		}
+	}
+}
