@@ -2,10 +2,14 @@ package main;
 
 import view.display;
 
-public class main {
+public class Main {
 	
 	public static display Battle_Rain;
 	//본 프로젝트에서 view에 해당하는 display 클래스를 선언
+	
+	public Main() {
+		//empty
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

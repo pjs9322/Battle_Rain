@@ -11,14 +11,14 @@ import java.lang.reflect.Method;
 import javax.swing.JPanel;
 
 import main.constant;
-import control.control;
+import control.Control;
 
 public abstract class display_Set extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
 	
 	protected ActionListener actionListener;
-	protected control control;
+	protected Control control;
 
 	private display_Set view_style;
 
@@ -48,7 +48,7 @@ public abstract class display_Set extends JPanel implements ActionListener {
 
 	public abstract void draw(Graphics g);
 	public abstract void init_Parts();
-	public void init_View(control control) {this.control = control;}
+	public void init_View(Control control) {this.control = control;}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

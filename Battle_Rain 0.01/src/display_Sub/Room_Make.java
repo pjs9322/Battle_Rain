@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import control.control;
+import control.Control;
 
 public class Room_Make extends Sub_Frame {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class Room_Make extends Sub_Frame {
 	private JButton ok_Button = new JButton("입장");
 	private JButton cancel_Button = new JButton("취소");
 	
-	public Room_Make(control control) {
+	public Room_Make(Control control) {
 		super(control, 250, 110);
 		
 		this.setTitle("방 만들기");

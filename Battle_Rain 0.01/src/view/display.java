@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import main.constant;
 import main.constant.STATE;
-import control.control;
+import control.Control;
 import display_Set.display_Set;
 
 public class display extends JFrame implements Runnable {
@@ -13,14 +13,14 @@ public class display extends JFrame implements Runnable {
 	private display_Set Current_Display;
 	private Thread thread;
 	
-	private control control;
+	private Control control;
 	
 	private STATE current_State;
 	private STATE state = STATE.Login;
 	public void setState(STATE state) {	this.state = state; }
 	
 	public display() {										// 생성자 작성
-		this.control = new control();
+		this.control = new Control();
 		this.thread = new Thread(this);						// 스레드 생성
 		this.thread.start();								// 스레드 실행
 		this.setTitle(constant.F_Title);					// 프레임 이름 지정

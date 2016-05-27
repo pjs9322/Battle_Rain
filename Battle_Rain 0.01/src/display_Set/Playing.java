@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-import control.control;
+import control.Control;
 
 public class Playing extends display_Set {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class Playing extends display_Set {
 		
 	}
 
-	public void init_View(control control) {
+	public void init_View(Control control) {
 		this.control = control;
 		this.control.make_Word();
 		

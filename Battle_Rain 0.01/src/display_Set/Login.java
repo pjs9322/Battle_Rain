@@ -86,6 +86,8 @@ public class Login extends display_Set {
 			} else if (!this.msg.isFocused()) {
 				this.msg.requestFocus();
 			}
+			this.userID.setText(null);
+			this.password.setText(null);
 		}
 	}
 

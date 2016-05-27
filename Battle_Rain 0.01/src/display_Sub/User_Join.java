@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import control.control;
+import control.Control;
 
 public class User_Join extends Sub_Frame {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class User_Join extends Sub_Frame {
 	private JButton ok_Button = new JButton("가입");
 	private JButton cancel_Button = new JButton("취소");
 	
-	public User_Join(control control) {
+	public User_Join(Control control) {
 		super(control, 280, 200);
 		this.setTitle("회원가입");
 

@@ -9,20 +9,20 @@ import java.lang.reflect.Method;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import control.control;
+import control.Control;
 
 public class Sub_Frame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	protected ActionListener actionListener;
-	protected control control;
+	protected Control control;
 	
 	private Sub_Frame sub_style;
 
 	protected JPanel panel_NORTH = new JPanel();
 	protected JPanel panel_SOUTH = new JPanel();
 	
-	public Sub_Frame(control control, int sub_Width, int sub_Height) {
+	public Sub_Frame(Control control, int sub_Width, int sub_Height) {
 		this.actionListener = new ActionHandler();
 		this.control = control;
 		this.sub_style = this;

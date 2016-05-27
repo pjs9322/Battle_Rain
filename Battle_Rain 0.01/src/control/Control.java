@@ -8,7 +8,7 @@ import main.constant.STATE;
 import model.Room_Model;
 import model.User_Model;
 
-public class control {
+public class Control {
 
 	private Room_Model room;
 	private User_Model user;
@@ -20,7 +20,7 @@ public class control {
 	public STATE getNext_State() { return next_State; }
 //	public void setNext_State(STATE state) { this.next_State = state; }
 	
-	public control() {
+	public Control() {
 		this.room = new Room_Model();
 		this.user = new User_Model();
 	}
