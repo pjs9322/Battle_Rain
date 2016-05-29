@@ -37,12 +37,18 @@ public class Control {
 	
 	public String user_Login(String userID, String password) {
 		String alart = null;
+		if (userID.equals("") || password.equals("")) {
+			alart = "ID와 비밀번호를 입력해주세요.";
+			return alart;
+		}
 		//입력받은 ID로 DB에 있는 Object(column)를 받아온다.
 		DBObject userData = db.find("User", "id", userID);
 		//회원가입된 유저가 존재하고 비밀번호가 일치하면 대기실로 진입한다.
 		if (userData != null && userData.get("password").equals(password)) {
 			this.userData = userData;
 			this.nextState = STATE.Wait;
+		} else {
+			alart = "계정 정보가 일치하지 않습니다.";
 		}
 		return alart;
 	}
@@ -56,6 +62,14 @@ public class Control {
 	
 	public String user_Join(String userID, String password, String name) {
 		String alart = null;
+		if (userID.equals("") || password.equals("") || name.equals("")) {
+			alart = "항목을 전부 입력해주세요.";
+			return alart;
+		}
+		if (userID.contains(" ") || password.contains(" ") || name.contains(" ")) {
+			alart = "공백이 포함될 수 없습니다.";
+			return alart;
+		}
 		//입력받은 ID가 DB에 존재하지 않으면 계정을 DB에 저장한다.
 		DBObject userData = db.find("User", "id", userID);
 		if (userData == null) {
@@ -64,14 +78,22 @@ public class Control {
 					.append("name", name)
 					.append("icon", 0);		//캐릭터 아이콘 [0,7] default 0
 			db.insert("User",  tempBasicDBObj);
+		} else {
+			alart = "계정 ID가 중복됩니다.";
 		}
 		return alart;
 	}
 
 	public String Room_Make(String roomName) {
 		String alart = null;
+		if (roomName.replaceAll(" ", "").equals("")) {
+			alart = "방 제목을 입력해주세요.";
+		}
+		DBObject roomData = db.find("Room", "master", (String) this.userData.get("name"));;
+		// 이미 자기가 만든 방이 있으면 DB에서 해당 방을 삭제
+		
 		//입력받은 방제목이 DB에 존재하지 않는다면 방 정보를 DB에 추가하고 그 방으로 진입한다.
-		DBObject roomData = db.find("Room", "rname", roomName);
+		roomData = db.find("Room", "rname", roomName);
 		if (roomData == null) {
 			BasicDBObject tempBasicDBObj = null;
 			try {
@@ -86,6 +108,8 @@ public class Control {
 			db.insert("Room",  tempBasicDBObj);
 			this.roomState = true;
 			this.nextState = STATE.Room;
+		} else {
+			alart = "중복된 방 제목입니다.";
 		}
 		return alart;
 	}
@@ -99,10 +123,15 @@ public class Control {
 	
 	public String Room_Search(String roomName) {
 		String alart = null;
+		if (roomName.replaceAll(" ", "").equals("")) {
+			alart = "방 제목을 입력해주세요.";
+		}
 		//입력받은 방제목이 존재하면 그 방으로 진입한다.
 		DBObject roomData = db.find("Room", "rname", roomName);
 		if (roomData != null) {
 			this.nextState = STATE.Room;
+		} else {
+			alart = "존재하지 앖는 방입니다.";
 		}
 		return alart;
 	}

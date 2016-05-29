@@ -92,7 +92,6 @@ public class Room extends display_Set implements Runnable {
 
 	public void init_View(Display display, Control control) {
 		super.init_View(display, control);
-		
 		this.myThread.start();
 	}
 	
