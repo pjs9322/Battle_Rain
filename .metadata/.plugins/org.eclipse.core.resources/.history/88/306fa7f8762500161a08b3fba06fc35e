@@ -1,0 +1,122 @@
+package control;
+
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.JPanel;
+
+import main.constant.STATE;
+import model.Database;
+import model.Room_Model;
+import model.User_Model;
+
+import com.mongodb.DBObject;
+
+public class Control {
+
+	private Room_Model room;
+	private User_Model user;
+	private boolean roomState = false; // false 가 클라이언트
+	public boolean getRoomState() {return roomState;}
+	
+	private Vector<RWord> wordList = new Vector<RWord>();
+	public Vector<RWord> getWordList() { return wordList; }
+	
+	private STATE next_State = STATE.Login;
+	public STATE getNext_State() { return next_State; }
+	
+	private Database db = null;
+	
+	public Control() {
+		this.room = new Room_Model();
+		this.user = new User_Model();
+	}
+	
+	public String user_Login(String userID, String password) {
+		String alart = null;
+		//입력받은 ID로 DB에 있는 Object(column)를 받아온다.
+		DBObject userData = db.find("User", "id", userID);
+		//회원가입된 유저가 존재하고 비밀번호가 일치하면 대기실로 진입한다.
+		if (userData != null && userData.get("password").equals(password)) {
+			userName = (String) userData.get("name");
+			this.next_State = STATE.Wait;
+		}
+		return alart;
+	}
+	
+	public void user_Logout() {
+		if (this.next_State.equals(STATE.Wait)) {
+			this.next_State = STATE.Login;
+		}
+	}
+
+	public void room_exit() {
+		if (this.next_State.equals(STATE.Room)) {
+			this.next_State = STATE.Wait;
+		}
+	}
+
+	public String user_Join(String userID, String password) {
+		String alart = null;
+		try {
+			alart = this.user.user_Join(userID, password);
+		} catch (ClassNotFoundException | IOException e) {}
+		return alart;
+	}
+
+	public String Room_Make(String roomName) {
+		String alart = null;
+		if (this.next_State.equals(STATE.Wait)) {
+			try {
+				alart = this.room.Room_Make(roomName);
+				if (alart == null) {
+					this.next_State = STATE.Room;
+					this.roomState = true;
+				}
+			} catch (ClassNotFoundException | IOException e) {}
+		}
+		return alart;
+	}
+	
+	public String Room_Search(String roomName) {
+		String alart = null;
+		if (this.next_State == STATE.Wait) {
+			try {
+				alart = this.room.Room_Search(roomName);
+				if (alart == null) {
+					this.next_State = STATE.Room;
+					this.roomState = false;
+				}
+			} catch (ClassNotFoundException | IOException e) {}
+		}
+		return alart;
+	}
+	
+	public void word_Make() {
+		for (int i = 0; i < 10; i++) {			
+			wordList.add(new RWord("단어"));
+		}
+	}
+	
+	
+	public void insert_Word(JPanel rainFeild, String text) {
+		for (RWord word: wordList) {
+			if (word.word.equals(text) && word.Y > 0 && word.Y < 473) {
+				wordList.remove(word);
+				return;
+			}
+		}
+	}
+	
+	public class RWord {
+		public String word;
+		public int X;
+		public int Y;
+		
+		public RWord (String word) {
+			this.word = word;
+			this.X = (int) (Math.random()*520);
+			this.Y = (int) -(Math.random()*600);
+		}
+	}
+}

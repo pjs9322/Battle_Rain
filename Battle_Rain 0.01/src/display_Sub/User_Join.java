@@ -64,7 +64,7 @@ public class User_Join extends Sub_Frame {
 
 	@SuppressWarnings("deprecation")
 	public void Join() {
-		String alart = this.control.user_Join(textID.getText(), textPW.getText());
+		String alart = this.control.user_Join(textID.getText(), textPW.getText(), textName.getText());
 		if (alart != null) {
 			JOptionPane.showMessageDialog(this, alart, "°æ°í", 0);
 		} else {

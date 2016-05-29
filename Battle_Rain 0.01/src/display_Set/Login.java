@@ -38,39 +38,40 @@ public class Login extends display_Set {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(toolkit.getImage(constant.L_I_Route[0]), 0, 0, this);
-		g.drawImage(toolkit.getImage(constant.L_I_Route[1]), 502, 450, this);
 	}
 
 	@Override
 	public void init_Parts() {
-		this.userID.setBounds(615, 458, 150, 21);
+		this.userID.setBounds(385, 400, 150, 21);
 		this.userID.setBorder(null);
 		this.userID.registerKeyboardAction(this, "user_Login",
 				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
 		
-		this.password.setBounds(615, 483, 150, 21);
+		this.password.setBounds(385, 425, 150, 21);
 		this.password.setBorder(null);
 		this.password.registerKeyboardAction(this, "user_Login",
 				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
 	
-		this.login_Button.setBounds(460, 540, 107, 36);
+		this.login_Button.setBounds(191, 494, 107, 36);
 		this.login_Button.setBorderPainted(false);
-		this.login_Button.setIcon(new ImageIcon(constant.L_I_Route[2]));
-		this.login_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[3]));
+		this.login_Button.setIcon(new ImageIcon(constant.L_I_Route[1]));
+		this.login_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[2]));
 		this.login_Button.addActionListener(this);
 		this.login_Button.setActionCommand("user_Login");
 
-		this.join_Button.setBounds(586, 540, 107, 36);
+		this.join_Button.setBounds(344, 494, 107, 36);
 		this.join_Button.setBorderPainted(false);
-		this.join_Button.setIcon(new ImageIcon(constant.L_I_Route[4]));
-		this.join_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[5]));
+		this.join_Button.setIcon(new ImageIcon(constant.L_I_Route[3]));
+		this.join_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[4]));
 		this.join_Button.addActionListener(this);
 		this.join_Button.setActionCommand("user_Join");
 		
-		this.exit_Button.setBounds(712, 540, 107, 36);
-		this.exit_Button.setIcon(new ImageIcon(constant.L_I_Route[6]));
-		this.exit_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[7]));
+		this.exit_Button.setBounds(491, 494, 107, 36);
 		this.exit_Button.setBorderPainted(false);
+		this.exit_Button.setIcon(new ImageIcon(constant.L_I_Route[5]));
+		this.exit_Button.setPressedIcon(new ImageIcon(constant.L_I_Route[6]));
+		this.exit_Button.addActionListener(this);
+		this.exit_Button.setActionCommand("exit");
 		
 		this.userID.requestFocus();
 	}
@@ -86,9 +87,9 @@ public class Login extends display_Set {
 			} else if (!this.msg.isFocused()) {
 				this.msg.requestFocus();
 			}
-			this.userID.setText(null);
-			this.password.setText(null);
 		}
+		this.userID.setText(null);
+		this.password.setText(null);
 	}
 
 	public void user_Join() {
@@ -99,5 +100,11 @@ public class Login extends display_Set {
 		} else if (!this.join.isFocused()) {
 			this.join.requestFocus();
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }

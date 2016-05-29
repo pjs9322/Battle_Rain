@@ -5,39 +5,50 @@ public class constant {
 	public static enum STATE { Login, Wait, Room, Playing};
 
 	public final static String F_Title = "Battle Rain";
-	public final static int F_Width = 1280;
-	public final static int F_Height = 720;
+	public final static int F_Width = 815;
+	public final static int F_Height = 635;
 
 	public final static String V_Route = "display_Set.";
 
 	public final static String[] L_I_Route = {
-		"rsc/image/Login/배경.gif",
-		"rsc/image/Login/ID입력창.gif",
-		"rsc/image/Login/로그인01.gif",
-		"rsc/image/Login/로그인02.gif",
-		"rsc/image/Login/회원가입01.gif",
-		"rsc/image/Login/회원가입02.gif",
-		"rsc/image/Login/종료01.gif",
-		"rsc/image/Login/종료02.gif"
+		"rsc/image/Login/background.gif",
+		"rsc/image/Login/login_0.gif",
+		"rsc/image/Login/login_1.gif",
+		"rsc/image/Login/join_0.gif",
+		"rsc/image/Login/join_1.gif",
+		"rsc/image/Login/exit_0.gif",
+		"rsc/image/Login/exit_1.gif"
 	};
 	
 	public final static String[] W_I_Route = {
-		"rsc/image/Wait/배경.gif",
-		"rsc/image/Wait/ID_대기방.gif",
-		"rsc/image/Wait/캐릭터리스트.gif",
-		"rsc/image/Wait/방만들기01.gif",
-		"rsc/image/Wait/방만들기02.gif",
-		"rsc/image/Wait/방.gif"
+		"rsc/image/Wait/background.gif",
+		"rsc/image/Wait/search_0.gif",
+		"rsc/image/Wait/search_1.gif",
+		"rsc/image/Wait/make_0.gif",
+		"rsc/image/Wait/make_1.gif",
+		"rsc/image/Wait/logout_0.gif",
+		"rsc/image/Wait/logout_1.gif",
+		"rsc/image/Wait/exit_0.gif",
+		"rsc/image/Wait/exit_1.gif"
 	};
 	
 	public final static String[] C_I_Route = {
-		"rsc/image/Chara/캐릭터_다오.gif",
-		"rsc/image/Chara/캐릭터_디지니.gif",
-		"rsc/image/Chara/캐릭터_마리드.gif",
-		"rsc/image/Chara/캐릭터_모스.gif",
-		"rsc/image/Chara/캐릭터_배찌.gif",
-		"rsc/image/Chara/캐릭터_에띠.gif",
-		"rsc/image/Chara/캐릭터_우니.gif",
-		"rsc/image/Chara/캐릭터_캐피.gif"
+		"rsc/image/Chara/00.gif",
+		"rsc/image/Chara/01.gif",
+		"rsc/image/Chara/02.gif",
+		"rsc/image/Chara/03.gif",
+		"rsc/image/Chara/04.gif",
+		"rsc/image/Chara/05.gif",
+		"rsc/image/Chara/06.gif",
+		"rsc/image/Chara/07.gif"
+	};
+	
+	public final static String[] R_I_Route = {
+		"rsc/image/Room/background.gif",
+		"rsc/image/Room/wordfeild.gif",
+		"rsc/image/Room/start_0.gif",
+		"rsc/image/Room/start_1.gif",
+		"rsc/image/Room/ready_0.gif",
+		"rsc/image/Room/ready_1.gif"
 	};
 }

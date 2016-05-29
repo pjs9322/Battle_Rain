@@ -1,8 +1,10 @@
 package display_Sub;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import control.Control;
@@ -12,17 +14,27 @@ public class Room_Make extends Sub_Frame {
 
 	private JLabel roomName = new JLabel("방 제목");
 	private JTextField roomText = new JTextField(15);
-
+	
+	private ButtonGroup group = new ButtonGroup();
+	private JRadioButton team = new JRadioButton("협력");
+	private JRadioButton single = new JRadioButton("단일");
+	
 	private JButton ok_Button = new JButton("입장");
 	private JButton cancel_Button = new JButton("취소");
 	
 	public Room_Make(Control control) {
-		super(control, 250, 110);
+		super(control, 250, 130);
 		
 		this.setTitle("방 만들기");
-		
+
 		this.panel_NORTH.add(roomName);
 		this.panel_NORTH.add(roomText);
+		this.panel_NORTH.add(team);
+		this.panel_NORTH.add(single);
+
+		this.team.doClick();
+		this.group.add(team);
+		this.group.add(single);
 
 		this.panel_SOUTH.add(ok_Button);
 		this.panel_SOUTH.add(cancel_Button);

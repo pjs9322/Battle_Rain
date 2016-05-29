@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/PJS/Documents/GitHub/Battle_Rain/Battle_Rain 0.01/bson-3.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PJS/Documents/GitHub/Battle_Rain/Battle_Rain 0.01/mongodb-driver-3.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PJS/Documents/GitHub/Battle_Rain/Battle_Rain 0.01/mongodb-driver-3.2.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PJS/Documents/GitHub/Battle_Rain/Battle_Rain 0.01/mongodb-driver-core-3.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

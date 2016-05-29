@@ -1,0 +1,179 @@
+package display_Set;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.im.InputContext;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import view.Display;
+import main.constant;
+import control.Client;
+import control.Control;
+import control.Control.RWord;
+import control.Server;
+
+public class Room extends display_Set implements Runnable {
+	private static final long serialVersionUID = 1L;
+
+	private RainFeild rainFeild = new RainFeild();
+	private JTextField texts = new JTextField(40);
+
+	private JButton startButton = new JButton();
+	private JButton readyButton = new JButton();
+	private JButton enterButton = new JButton();
+	private JButton exitButton = new JButton();
+	
+	private JButton playingRoom = new JButton();
+	
+	private boolean playing = false;
+
+	private Thread wordRain = new Thread(rainFeild);
+
+	public Room() {
+		super();		
+		this.add(rainFeild);
+		
+		this.add(startButton);
+		this.add(readyButton);
+		
+		this.add(enterButton);
+		this.add(exitButton);
+		this.add(texts);
+		this.texts.registerKeyboardAction(this, "insert_Word",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.R_I_Route[0]), 0, 0, this);
+	}
+
+	@Override
+	public void init_Parts() {
+		this.rainFeild.setBounds(20, 40, 535, 473);
+		
+		this.texts.setBounds(210, 541, 305, 35);
+		this.texts.setBorder(null);
+		try {  
+	           InputContext inCtx = texts.getInputContext();
+	           Character.Subset[] subset = { Character.UnicodeBlock.HANGUL_SYLLABLES };  
+	            	inCtx.setCharacterSubsets( subset );
+	    } catch (Exception e) {}
+
+		this.startButton.setBounds(89, 536, 96, 44);
+		this.startButton.setBorderPainted(false);
+		this.startButton.setIcon(new ImageIcon(constant.R_I_Route[2]));
+		this.startButton.setPressedIcon(new ImageIcon(constant.R_I_Route[3]));
+		this.startButton.addActionListener(this);
+		this.startButton.setActionCommand("game_Start");
+		
+		this.readyButton.setBounds(89, 536, 96, 44);
+		this.readyButton.setBorderPainted(false);
+		this.readyButton.setIcon(new ImageIcon(constant.R_I_Route[4]));
+		this.readyButton.setPressedIcon(new ImageIcon(constant.R_I_Route[5]));
+		this.readyButton.addActionListener(this);
+		this.readyButton.setActionCommand("game_Ready");
+		
+		this.enterButton.setBounds(527, 541, 35, 35);
+		this.enterButton.setContentAreaFilled(false);
+		this.enterButton.addActionListener(this);
+		this.enterButton.setActionCommand("insert_Word");
+		
+		this.exit_Button.setBounds(20, 535, 45, 45);
+		this.exit_Button.setContentAreaFilled(false);
+		this.exit_Button.addActionListener(this);
+		this.exit_Button.setActionCommand("room_exit");
+
+//		this.rainFeild.requestFocus();
+//		this.start_Button.requestFocus();
+//		this.enter_Button.requestFocus();
+		this.texts.requestFocus();
+	}
+
+	public void init_View(Display display, Control control) {
+		super.init_View(display, control);
+		
+		this.myThread.start();
+	}
+	
+	public void game_Start() {
+		if (!playing) {
+			this.playing = true;
+			this.rainFeild.init_View(display, control);
+			this.rainFeild.word_Make();
+			this.remove(start_Button);
+			this.remove(ready_Button);
+			this.display.setVisible(true);
+			this.texts.requestFocus();
+			this.wordRain.start();
+		}
+	}
+	
+	public void insert_Word() {
+		control.insert_Word(this.rainFeild, texts.getText());
+		display.repaint();
+		this.texts.setText(null);
+	}
+	
+	public void room_exit() {
+		this.control.room_exit();
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if(this.control.getRoomState()) {
+			this.remove(ready_Button);
+			new Server().start();
+		} else {
+			this.remove(start_Button);
+			new Client().start();
+		}
+	}
+	
+	class gamePlay implements Runnable {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+		}
+	}
+	
+	class RainFeild extends display_Set {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public void draw(Graphics g) {
+			g.drawImage(toolkit.getImage(constant.R_I_Route[1]), 0, 0, this);
+			
+			for (RWord word: this.control.getWordList()) {
+				g.drawString(word.word, word.X, word.Y);
+			}
+		}
+		
+		public void word_Make() {
+			this.control.word_Make();
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				while (true) {
+					for (RWord word: this.control.getWordList()) {
+						word.Y += 2;
+					}
+					this.repaint();
+					Thread.sleep(100);
+				}
+			} catch (InterruptedException e) {}
+		}
+
+		@Override
+		public void init_Parts() {}		
+	}
+}

@@ -10,15 +10,19 @@ import java.lang.reflect.Method;
 
 import javax.swing.JPanel;
 
+import view.Display;
 import main.constant;
 import control.Control;
 
-public abstract class display_Set extends JPanel implements ActionListener {
+public abstract class display_Set extends JPanel implements ActionListener, Runnable {
 	private static final long serialVersionUID = 1L;
 	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
 	
 	protected ActionListener actionListener;
+	protected Display display;
 	protected Control control;
+	
+	public Thread myThread;
 
 	private display_Set view_style;
 
@@ -27,6 +31,7 @@ public abstract class display_Set extends JPanel implements ActionListener {
 
 	public display_Set() {
 		this.view_style = this;
+		this.myThread = new Thread(this);
 	}
 
 	public void paint(Graphics g) {
@@ -48,7 +53,14 @@ public abstract class display_Set extends JPanel implements ActionListener {
 
 	public abstract void draw(Graphics g);
 	public abstract void init_Parts();
-	public void init_View(Control control) {this.control = control;}
+	public void init_View(Display display, Control control) {
+		this.display = display;
+		this.control = control;
+	}
+	
+	public void exit() {
+		System.exit(1);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

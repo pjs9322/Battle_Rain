@@ -1,0 +1,45 @@
+package main;
+
+public class constant {
+
+	public static enum STATE { Login, Wait, Room, Playing};
+
+	public final static String F_Title = "Battle Rain";
+	public final static int F_Width = 850;
+	public final static int F_Height = 635;
+
+	public final static String V_Route = "display_Set.";
+
+	public final static String[] L_I_Route = {
+		"rsc/image/Login/background.gif",
+		"rsc/image/Login/login_0.gif",
+		"rsc/image/Login/login_1.gif",
+		"rsc/image/Login/join_0.gif",
+		"rsc/image/Login/join_1.gif",
+		"rsc/image/Login/exit_0.gif",
+		"rsc/image/Login/exit_1.gif"
+	};
+	
+	public final static String[] W_I_Route = {
+		"rsc/image/Wait/background.gif",
+		"rsc/image/Wait/search_0.gif",
+		"rsc/image/Wait/search_1.gif",
+		"rsc/image/Wait/make_0.gif",
+		"rsc/image/Wait/make_1.gif",
+		"rsc/image/Wait/logout_0.gif",
+		"rsc/image/Wait/logout_1.gif",
+		"rsc/image/Wait/exit_0.gif",
+		"rsc/image/Wait/exit_1.gif"
+	};
+	
+	public final static String[] C_I_Route = {
+		"rsc/image/Chara/캐릭터_다오.gif",
+		"rsc/image/Chara/캐릭터_디지니.gif",
+		"rsc/image/Chara/캐릭터_마리드.gif",
+		"rsc/image/Chara/캐릭터_모스.gif",
+		"rsc/image/Chara/캐릭터_배찌.gif",
+		"rsc/image/Chara/캐릭터_에띠.gif",
+		"rsc/image/Chara/캐릭터_우니.gif",
+		"rsc/image/Chara/캐릭터_캐피.gif"
+	};
+}
