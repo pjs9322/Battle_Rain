@@ -6,13 +6,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import main.constant;
-import display_Sub.Alart_Mass;
-import display_Sub.User_Join;
+import model.Audio;
+import display_Sub.Sub_Frame;
 
 public class Login extends display_Set {
 	private static final long serialVersionUID = 1L;
@@ -22,12 +23,10 @@ public class Login extends display_Set {
 	private JButton login_Button = new JButton();
 	private JButton join_Button = new JButton();
 	private JButton exit_Button = new JButton();
-
-	private Alart_Mass msg;
-	private User_Join join;
 	
 	public Login() {
 		super();
+		
 		this.add(userID);
 		this.add(password);
 		this.add(login_Button);
@@ -78,27 +77,31 @@ public class Login extends display_Set {
 
 	@SuppressWarnings("deprecation")
 	public void user_Login() {
-		String alart = this.control.user_Login(userID.getText(), password.getText());
-		if (alart != null) {
-			if (this.msg == null) {
-				this.msg = new Alart_Mass(alart);
-			} else if (!this.msg.isDisplayable()) {
-				this.msg = new Alart_Mass(alart);
-			} else if (!this.msg.isFocused()) {
-				this.msg.requestFocus();
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			String alart = this.control.user_Login(userID.getText(), password.getText());
+			if (alart != null) {
+				JOptionPane.showMessageDialog(this, alart, "°æ°í", 0);
+			} else {
+				new Audio(constant.M_Route[4], false);
 			}
+			constant.delay = true;
 		}
 		this.userID.setText(null);
 		this.password.setText(null);
 	}
 
 	public void user_Join() {
-		if (this.join == null) {
-			this.join = new User_Join(control);
-		} else if (!this.join.isDisplayable()) {
-			this.join = new User_Join(control);
-		} else if (!this.join.isFocused()) {
-			this.join.requestFocus();
+		if (this.subFrame == null) {
+			this.subFrame = new Sub_Frame(control, "User_Join");
+		} else if (!this.subFrame.isDisplayable()) {
+			this.subFrame = new Sub_Frame(control, "User_Join");
+		} else if (!this.subFrame.isFocused()) {
+			this.subFrame.requestFocus();
+		}
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
 		}
 	}
 

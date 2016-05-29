@@ -12,6 +12,7 @@ import javax.swing.KeyStroke;
 
 import view.Display;
 import main.constant;
+import model.Audio;
 import control.Client;
 import control.Control;
 import control.Control.RWord;
@@ -33,7 +34,7 @@ public class Room extends display_Set implements Runnable {
 	private Thread wordRain = new Thread(rainFeild);
 
 	public Room() {
-		super();		
+		super();
 		this.add(rainFeild);
 		
 		this.add(startButton);
@@ -95,14 +96,28 @@ public class Room extends display_Set implements Runnable {
 		this.myThread.start();
 	}
 	
+	public void game_Ready() {
+		if (!playing) {
+			if (!constant.delay) {
+				new Audio(constant.M_Route[4], false);
+				constant.delay = true;
+			}
+		}
+	}
+	
 	public void game_Start() {
 		if (!playing) {
+			if (!constant.delay) {
+				new Audio(constant.M_Route[4], false);
+				constant.delay = true;
+			}
 			this.playing = true;
 			this.rainFeild.init_View(display, control);
 			this.rainFeild.word_Make();
 			this.remove(startButton);
 			this.remove(readyButton);
-			this.display.setVisible(true);
+			this.display.BGM.stop();
+			this.display.BGM = new Audio(constant.M_Route[2],true);
 			this.texts.requestFocus();
 			this.wordRain.start();
 		}
@@ -110,11 +125,14 @@ public class Room extends display_Set implements Runnable {
 	
 	public void insert_Word() {
 		control.insert_Word(this.rainFeild, texts.getText());
-		display.repaint();
 		this.texts.setText(null);
 	}
 	
 	public void room_exit() {
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
+		}
 		this.control.room_exit();
 	}
 	
@@ -159,7 +177,7 @@ public class Room extends display_Set implements Runnable {
 			try {
 				while (true) {
 					for (RWord word: this.control.getWordList()) {
-						word.Y += 2;
+						word.Y ++;
 					}
 					this.repaint();
 					Thread.sleep(100);

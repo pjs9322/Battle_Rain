@@ -1,0 +1,52 @@
+package display_Sub;
+
+import java.awt.Graphics;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import control.Control;
+
+public class Room_Make extends Sub_Panel {
+	private static final long serialVersionUID = 1L;
+
+	private JTextField roomText = new JTextField(15);
+	
+	private ButtonGroup group = new ButtonGroup();
+	private JRadioButton team = new JRadioButton();
+	private JRadioButton single = new JRadioButton();
+	
+	private JButton ok_Button = new JButton();
+	private JButton cancel_Button = new JButton();
+	
+	public Room_Make() {
+		super();
+
+		this.team.doClick();
+		this.group.add(team);
+		this.group.add(single);
+	}
+
+	public void Make() {
+		String alart = this.control.Room_Make(this.roomText.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(this, alart, "°æ°í", 0);
+		} else {
+			this.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.dispose();
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+}

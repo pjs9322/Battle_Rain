@@ -2,13 +2,16 @@ package main;
 
 public class constant {
 
-	public static enum STATE { Login, Wait, Room, Playing};
+	public static boolean delay = false;
+	
+	public static enum STATE { Login, Wait, Room };
 
 	public final static String F_Title = "Battle Rain";
 	public final static int F_Width = 815;
 	public final static int F_Height = 635;
 
 	public final static String V_Route = "display_Set.";
+	public final static String S_Route = "display_Sub.";
 
 	public final static String[] L_I_Route = {
 		"rsc/image/Login/background.gif",
@@ -42,7 +45,7 @@ public class constant {
 		"rsc/image/Chara/06.gif",
 		"rsc/image/Chara/07.gif"
 	};
-	
+
 	public final static String[] R_I_Route = {
 		"rsc/image/Room/background.gif",
 		"rsc/image/Room/wordfeild.gif",
@@ -50,5 +53,36 @@ public class constant {
 		"rsc/image/Room/start_1.gif",
 		"rsc/image/Room/ready_0.gif",
 		"rsc/image/Room/ready_1.gif"
+	};
+	
+	public final static String[] SF_I_Route = {
+		"rsc/image/Sub_Frame/ok_0.gif",
+		"rsc/image/Sub_Frame/ok_1.gif",
+		"rsc/image/Sub_Frame/cancel_0.gif",
+		"rsc/image/Sub_Frame/cancel_1.gif",
+		"rsc/image/Sub_Frame/join.gif",
+		"rsc/image/Sub_Frame/search.gif",
+		"rsc/image/Sub_Frame/make.gif",
+		"rsc/image/Sub_Frame/radio.gif"
+	};
+	
+	public final static String[] SC_I_Route = {
+		"rsc/image/Sub_Chara/00.gif",
+		"rsc/image/Sub_Chara/01.gif",
+		"rsc/image/Sub_Chara/02.gif",
+		"rsc/image/Sub_Chara/03.gif",
+		"rsc/image/Sub_Chara/04.gif",
+		"rsc/image/Sub_Chara/05.gif",
+		"rsc/image/Sub_Chara/06.gif",
+		"rsc/image/Sub_Chara/07.gif"
+	};
+	
+	public final static String[] M_Route = {
+		"rsc/music/defaultBGM.wav",
+		"rsc/music/waitBGM.wav",
+		"rsc/music/playBGM.wav",
+		"rsc/music/chara.wav",
+		"rsc/music/click.wav",
+		"rsc/music/insertWord.wav"
 	};
 }

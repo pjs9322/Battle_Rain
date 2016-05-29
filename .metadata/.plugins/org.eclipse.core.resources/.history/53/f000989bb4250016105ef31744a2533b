@@ -1,0 +1,104 @@
+package display_Sub;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import main.constant;
+import model.Audio;
+import control.Control;
+
+public class Room_Search extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+
+	private JLabel roomName = new JLabel("방 제목");
+	private JTextField roomText = new JTextField(15);
+
+	private JButton ok_Button = new JButton("입장");
+	private JButton cancel_Button = new JButton("취소");
+	public User_Join() {
+		super();
+
+		this.add(userID);
+		this.add(userPW);
+		this.add(userName);
+		this.add(ok_Button);
+		this.add(cancel_Button);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.SF_I_Route[4]), 0, 0, this);
+	}
+
+	@Override
+	public void init_Parts() {
+		this.userID.setBounds(115, 17, 150, 21);
+		this.userID.setBorder(null);
+		this.userID.registerKeyboardAction(this, "Join",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+		
+		this.userPW.setBounds(115, 44, 150, 21);
+		this.userPW.setBorder(null);
+		this.userPW.registerKeyboardAction(this, "Join",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+		
+		this.userName.setBounds(115, 72, 150, 21);
+		this.userName.setBorder(null);
+		this.userName.registerKeyboardAction(this, "Join",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+
+		this.ok_Button.setBounds(51, 108, 75, 34);
+		this.ok_Button.setBorderPainted(false);
+		this.ok_Button.setIcon(new ImageIcon(constant.SF_I_Route[0]));
+		this.ok_Button.setPressedIcon(new ImageIcon(constant.SF_I_Route[1]));
+		this.ok_Button.addActionListener(this);
+		this.ok_Button.setActionCommand("Join");
+
+		this.cancel_Button.setBounds(154, 108, 75, 34);
+		this.cancel_Button.setBorderPainted(false);
+		this.cancel_Button.setIcon(new ImageIcon(constant.SF_I_Route[2]));
+		this.cancel_Button.setPressedIcon(new ImageIcon(constant.SF_I_Route[3]));
+		this.cancel_Button.addActionListener(this);
+		this.cancel_Button.setActionCommand("Cancel");
+		
+		this.userID.requestFocus();
+	}
+	
+	public void init_View(Sub_Frame sub_Frame, Control control) {
+		// TODO Auto-generated method stub
+		super.init_View(sub_Frame, control);
+		this.frame.setTitle("회원가입");
+		this.frame.setSize(295, 180);
+	}
+
+	@SuppressWarnings("deprecation")
+	public void Join() {
+		String alart = this.control.user_Join(userID.getText(), userPW.getText(), userName.getText());
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			if (alart != null) {
+				JOptionPane.showMessageDialog(this, alart, "경고", 0);
+			} else {
+				JOptionPane.showMessageDialog(this, "회원 가입이 완료되었습니다.", "가입성공", 0);
+				this.frame.dispose();
+			}
+			constant.delay = true;
+		}
+	}
+	
+	public void Cancel() {
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
+		}
+		this.frame.dispose();
+	}
+}

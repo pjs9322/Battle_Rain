@@ -6,7 +6,9 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import main.constant;
 import main.constant.STATE;
+import model.Audio;
 import model.Database;
 
 import com.mongodb.BasicDBObject;
@@ -16,6 +18,9 @@ import com.mongodb.DBObject;
 public class Control {
 	private Database db;
 	private DBObject userData;
+	public String getUserName() { return (String) this.userData.get("name"); }
+	public int getChara() { return (int) this.userData.get("icon"); }
+	public void setChara(int Chara) { this.userData.put("icon", Chara); }
 	
 	private boolean roomState; // false 가 클라이언트
 	public boolean getRoomState() {return roomState;}
@@ -25,7 +30,6 @@ public class Control {
 	
 	private STATE nextState = STATE.Login;
 	public STATE getNextState() { return nextState; }
-	
 	
 	public Control() {
 		this.userData = null;
@@ -86,30 +90,51 @@ public class Control {
 
 	public String Room_Make(String roomName) {
 		String alart = null;
-		if (roomName.replaceAll(" ", "").equals("")) {
-			alart = "방 제목을 입력해주세요.";
-		}
-		DBObject roomData = db.find("Room", "master", (String) this.userData.get("name"));;
-		// 이미 자기가 만든 방이 있으면 DB에서 해당 방을 삭제
-		
-		//입력받은 방제목이 DB에 존재하지 않는다면 방 정보를 DB에 추가하고 그 방으로 진입한다.
-		roomData = db.find("Room", "rname", roomName);
-		if (roomData == null) {
-			BasicDBObject tempBasicDBObj = null;
-			try {
-				tempBasicDBObj = new BasicDBObject("rname", roomName)
-						.append("master", this.userData.get("name"))
-						.append("mode", 0)	//게임 모드 [0,1] default 0
-						.append("hostIP", InetAddress.getLocalHost().getHostAddress());
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (this.nextState.equals(constant.STATE.Wait)) {
+			if (roomName.replaceAll(" ", "").equals("")) {
+				alart = "방 제목을 입력해주세요.";
+				return alart;
 			}
-			db.insert("Room",  tempBasicDBObj);
-			this.roomState = true;
-			this.nextState = STATE.Room;
-		} else {
-			alart = "중복된 방 제목입니다.";
+			DBObject roomData = db.find("Room", "master", (String) this.userData.get("name"));
+			// 이미 자기가 만든 방이 있으면 DB에서 해당 방을 삭제
+			
+			//입력받은 방제목이 DB에 존재하지 않는다면 방 정보를 DB에 추가하고 그 방으로 진입한다.
+			roomData = db.find("Room", "rname", roomName);
+			if (roomData == null) {
+				BasicDBObject tempBasicDBObj = null;
+				try {
+					tempBasicDBObj = new BasicDBObject("rname", roomName)
+							.append("master", this.userData.get("name"))
+							.append("mode", 0)	//게임 모드 [0,1] default 0
+							.append("hostIP", InetAddress.getLocalHost().getHostAddress());
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				db.insert("Room",  tempBasicDBObj);
+				this.roomState = true;
+				this.nextState = STATE.Room;
+			} else {
+				alart = "중복된 방 제목입니다.";
+			}
+		}
+		return alart;
+	}
+	
+	public String Room_Search(String roomName) {
+		String alart = null;
+		if (this.nextState.equals(constant.STATE.Wait)) {
+			if (roomName.replaceAll(" ", "").equals("")) {
+				alart = "방 제목을 입력해주세요.";
+				return alart;
+			}
+			//입력받은 방제목이 존재하면 그 방으로 진입한다.
+			DBObject roomData = db.find("Room", "rname", roomName);
+			if (roomData != null) {
+				this.nextState = STATE.Room;
+			} else {
+				alart = "존재하지 앖는 방입니다.";
+			}
 		}
 		return alart;
 	}
@@ -118,22 +143,6 @@ public class Control {
 		if (this.nextState.equals(STATE.Room)) {
 			this.nextState = STATE.Wait;
 		}
-	}
-
-	
-	public String Room_Search(String roomName) {
-		String alart = null;
-		if (roomName.replaceAll(" ", "").equals("")) {
-			alart = "방 제목을 입력해주세요.";
-		}
-		//입력받은 방제목이 존재하면 그 방으로 진입한다.
-		DBObject roomData = db.find("Room", "rname", roomName);
-		if (roomData != null) {
-			this.nextState = STATE.Room;
-		} else {
-			alart = "존재하지 앖는 방입니다.";
-		}
-		return alart;
 	}
 	
 	public void word_Make() {
@@ -148,10 +157,13 @@ public class Control {
 		}
 	}
 	
-	
 	public void insert_Word(JPanel rainFeild, String text) {
 		for (RWord word: wordList) {
 			if (word.word.equals(text) && word.Y > 0 && word.Y < 473) {
+				if (!constant.delay) {
+					new Audio(constant.M_Route[5], false);
+					constant.delay = true;
+				}
 				wordList.remove(word);
 				return;
 			}
@@ -165,7 +177,7 @@ public class Control {
 		
 		public RWord (String word) {
 			this.word = word;
-			this.X = (int) (Math.random()*500);
+			this.X = (int) (Math.random()*490);
 			this.Y = (int) -(Math.random()*2000);
 		}
 	}

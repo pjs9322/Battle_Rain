@@ -1,0 +1,87 @@
+package main;
+
+public class constant {
+
+	public static boolean delay = false;
+	
+	public static enum STATE { Login, Wait, Room };
+
+	public final static String F_Title = "Battle Rain";
+	public final static int F_Width = 815;
+	public final static int F_Height = 635;
+
+	public final static String V_Route = "display_Set.";
+	public final static String S_Route = "display_Sub.";
+
+	public final static String[] L_I_Route = {
+		"rsc/image/Login/background.gif",
+		"rsc/image/Login/login_0.gif",
+		"rsc/image/Login/login_1.gif",
+		"rsc/image/Login/join_0.gif",
+		"rsc/image/Login/join_1.gif",
+		"rsc/image/Login/exit_0.gif",
+		"rsc/image/Login/exit_1.gif"
+	};
+	
+	public final static String[] W_I_Route = {
+		"rsc/image/Wait/background.gif",
+		"rsc/image/Wait/search_0.gif",
+		"rsc/image/Wait/search_1.gif",
+		"rsc/image/Wait/make_0.gif",
+		"rsc/image/Wait/make_1.gif",
+		"rsc/image/Wait/logout_0.gif",
+		"rsc/image/Wait/logout_1.gif",
+		"rsc/image/Wait/exit_0.gif",
+		"rsc/image/Wait/exit_1.gif"
+	};
+	
+	public final static String[] C_I_Route = {
+		"rsc/image/Chara/00.gif",
+		"rsc/image/Chara/01.gif",
+		"rsc/image/Chara/02.gif",
+		"rsc/image/Chara/03.gif",
+		"rsc/image/Chara/04.gif",
+		"rsc/image/Chara/05.gif",
+		"rsc/image/Chara/06.gif",
+		"rsc/image/Chara/07.gif"
+	};
+
+	public final static String[] R_I_Route = {
+		"rsc/image/Room/background.gif",
+		"rsc/image/Room/wordfeild.gif",
+		"rsc/image/Room/start_0.gif",
+		"rsc/image/Room/start_1.gif",
+		"rsc/image/Room/ready_0.gif",
+		"rsc/image/Room/ready_1.gif"
+	};
+	
+	public final static String[] SF_I_Route = {
+		"rsc/image/Sub_Frame/ok_0.gif",
+		"rsc/image/Sub_Frame/ok_1.gif",
+		"rsc/image/Sub_Frame/cancel_0.gif",
+		"rsc/image/Sub_Frame/cancel_1.gif",
+		"rsc/image/Sub_Frame/join.gif",
+		"rsc/image/Sub_Frame/search.gif",
+		"rsc/image/Sub_Frame/make.gif"
+	};
+	
+	public final static String[] SC_I_Route = {
+		"rsc/image/Sub_Chara/00.gif",
+		"rsc/image/Sub_Chara/01.gif",
+		"rsc/image/Sub_Chara/02.gif",
+		"rsc/image/Sub_Chara/03.gif",
+		"rsc/image/Sub_Chara/04.gif",
+		"rsc/image/Sub_Chara/05.gif",
+		"rsc/image/Sub_Chara/06.gif",
+		"rsc/image/Sub_Chara/07.gif"
+	};
+	
+	public final static String[] M_Route = {
+		"rsc/music/defaultBGM.wav",
+		"rsc/music/waitBGM.wav",
+		"rsc/music/playBGM.wav",
+		"rsc/music/chara.wav",
+		"rsc/music/click.wav",
+		"rsc/music/insertWord.gif"
+	};
+}

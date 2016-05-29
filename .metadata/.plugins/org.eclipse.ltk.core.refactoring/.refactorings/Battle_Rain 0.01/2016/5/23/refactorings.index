@@ -2,3 +2,17 @@
 1464520838966	Rename resource 'Audio'
 1464523175899	Delete elements
 1464523989927	Delete element
+1464527219304	Rename resource 'chara.WAV'
+1464527222865	Rename resource 'click.WAV'
+1464527225575	Rename resource 'defaultBGM.WAV'
+1464527228629	Rename resource 'waitBGM.WAV'
+1464527836536	Rename resource 'sub'
+1464527850015	Rename resource 'sub_Frame'
+1464527857612	Rename resource 'sub_frame'
+1464527934682	Delete elements
+1464531214665	Rename type 'subPanel'
+1464532392030	Delete element
+1464538490106	Delete element
+1464541819112	Delete elements
+1464542393157	Delete element
+1464542404031	Rename resource 'radio_1.gif'

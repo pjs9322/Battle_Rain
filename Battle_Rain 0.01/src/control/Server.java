@@ -14,10 +14,6 @@ public class Server implements Runnable {
    private ServerSocket serverSocket;
    private String myName;
 
-   public static void main(String[] args) {
-      new Server().start();
-   }
-
    public Server() {
       clients = new HashMap<String, DataOutputStream>();
 

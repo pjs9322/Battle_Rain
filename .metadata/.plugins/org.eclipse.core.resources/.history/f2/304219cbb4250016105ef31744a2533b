@@ -1,0 +1,51 @@
+package display_Sub;
+
+import java.awt.Graphics;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import control.Control;
+
+public class Room_Search extends Sub_Panel {
+	private static final long serialVersionUID = 1L;
+
+	private JTextField roomName = new JTextField(15);
+
+	private JButton ok_Button = new JButton("입장");
+	private JButton cancel_Button = new JButton("취소");
+	
+	public Room_Search(Control control) {
+		super();
+		
+		this.add(roomName);
+
+		this.add(ok_Button);
+		this.add(cancel_Button);
+		
+		this.ok_Button.addActionListener(this);
+		this.ok_Button.setActionCommand("Search");
+		
+		this.cancel_Button.addActionListener(this);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+
+
+	public void Search() {
+		String alart = this.control.Room_Search(this.roomText.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
+		} else {
+			this.dispose();
+		}
+	}
+
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+}

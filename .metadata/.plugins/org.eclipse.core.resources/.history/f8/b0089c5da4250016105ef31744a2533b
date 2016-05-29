@@ -1,0 +1,79 @@
+package display_Sub;
+
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import main.constant;
+import control.Control;
+
+public class User_Join extends Sub_Frame {
+	private static final long serialVersionUID = 1L;
+
+	private JPanel panel01 = new JPanel();
+	private JPanel panel02 = new JPanel();
+	private JPanel panel03 = new JPanel();
+	
+	private JPanel panel_NORTH = new JPanel();
+	private JPanel panel_SOUTH = new JPanel();
+	
+	private JTextField textID = new JTextField(15);
+	private JPasswordField textPW = new JPasswordField(15);
+	private JTextField textName = new JTextField(15);
+
+	private JButton ok_Button = new JButton("가입");
+	private JButton cancel_Button = new JButton("취소");
+	
+	public User_Join(Control control) {
+		super(control, 280, 200);
+		this.setTitle("회원가입");
+
+		this.panel01.add(textID);
+		
+		this.panel02.add(textPW);
+
+		this.panel03.add(textName);
+		
+		this.panel_SOUTH.add(ok_Button);
+		this.panel_SOUTH.add(cancel_Button);
+
+		this.panel_NORTH.add(panel01, BorderLayout.NORTH);
+		this.panel_NORTH.add(panel02, BorderLayout.CENTER);
+		this.panel_NORTH.add(panel03, BorderLayout.SOUTH);
+		this.add(panel_NORTH);
+		this.add(panel_SOUTH, BorderLayout.SOUTH);
+		
+		this.ok_Button.addActionListener(actionListener);
+		this.ok_Button.setActionCommand("Join");
+		
+		this.cancel_Button.addActionListener(actionListener);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.SF_I_Route[4]), 0, 0, this);
+	}
+
+
+	@SuppressWarnings("deprecation")
+	public void Join() {
+		String alart = this.control.user_Join(textID.getText(), textPW.getText(), textName.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
+		} else {
+			JOptionPane.showMessageDialog(this, "회원 가입이 완료되었습니다.", "가입성공", 0);
+			this.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.dispose();
+	}
+}

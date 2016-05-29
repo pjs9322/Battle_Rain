@@ -1,0 +1,79 @@
+package display_Sub;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import control.Control;
+import main.constant;
+
+public class User_Join extends Sub_Panel {
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField userID = new JTextField(15);
+	private JPasswordField userPW = new JPasswordField(15);
+	private JTextField userName = new JTextField(15);
+
+	private JButton ok_Button = new JButton();
+	private JButton cancel_Button = new JButton();
+	
+	public User_Join() {
+		super();
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(toolkit.getImage(constant.SF_I_Route[4]), 0, 0, this);
+	}
+
+	@Override
+	public void init_Parts() {
+		this.userID.setBounds(385, 425, 150, 21);
+		this.userID.setBorder(null);
+		this.userID.registerKeyboardAction(this, "Join",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+
+		this.ok_Button.setBounds(0, 0, 75, 34);
+		this.ok_Button.setBorderPainted(false);
+		this.ok_Button.setIcon(new ImageIcon(constant.SF_I_Route[0]));
+		this.ok_Button.setPressedIcon(new ImageIcon(constant.SF_I_Route[1]));
+		this.ok_Button.addActionListener(this);
+		this.ok_Button.setActionCommand("Join");
+
+		this.cancel_Button.setSize(75, 34);
+		this.cancel_Button.setBorderPainted(false);
+		this.cancel_Button.setIcon(new ImageIcon(constant.SF_I_Route[2]));
+		this.cancel_Button.setPressedIcon(new ImageIcon(constant.SF_I_Route[3]));
+		this.cancel_Button.addActionListener(this);
+		this.cancel_Button.setActionCommand("Cancel");
+	}
+	
+	public void init_View(Sub_Frame sub_Frame, Control control) {
+		// TODO Auto-generated method stub
+		super.init_View(sub_Frame, control);
+		this.frame.setTitle("회원가입");
+	}
+
+	@SuppressWarnings("deprecation")
+	public void Join() {
+		String alart = this.control.user_Join(userID.getText(), userPW.getText(), userName.getText());
+		if (alart != null) {
+			JOptionPane.showMessageDialog(this, alart, "경고", 0);
+		} else {
+			JOptionPane.showMessageDialog(this, "회원 가입이 완료되었습니다.", "가입성공", 0);
+			this.frame.dispose();
+		}
+	}
+	
+	public void Cancel() {
+		this.frame.dispose();
+	}
+
+}

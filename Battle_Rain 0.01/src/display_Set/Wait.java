@@ -1,5 +1,6 @@
 package display_Set;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
 
@@ -9,8 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 import main.constant;
-import display_Sub.Room_Make;
-import display_Sub.Room_Search;
+import model.Audio;
+import display_Sub.Sub_Frame;
 
 public class Wait extends display_Set {
 	private static final long serialVersionUID = 1L;
@@ -22,14 +23,10 @@ public class Wait extends display_Set {
 	private JButton search_Room_Button = new JButton();
 	private JButton logout_Button = new JButton();
 	private JButton exit_Button = new JButton();
-
-	private Room_Make make;
-	private Room_Search search;
-
-	private int chara = 0;
 	
 	public Wait() {
 		super();
+		
 		this.add(make_Room_Button);
 		this.add(search_Room_Button);
 		this.add(logout_Button);
@@ -45,7 +42,11 @@ public class Wait extends display_Set {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(toolkit.getImage(constant.W_I_Route[0]), 0, 0, this);
-		g.drawImage(toolkit.getImage(constant.C_I_Route[chara]), 0, 0, this);
+		if (this.control != null) {
+			g.drawImage(toolkit.getImage(constant.C_I_Route[this.control.getChara()]), 0, 0, this);
+			g.setColor(Color.WHITE);
+			g.drawString(this.control.getUserName(), 90, 305);
+		}
 	}
 
 	@Override
@@ -89,36 +90,53 @@ public class Wait extends display_Set {
 	}
 	
 	public void make_Room() {
-		if (this.make == null) {
-			this.make = new Room_Make(control);
-		} else if (!this.make.isDisplayable()) {
-			this.make = new Room_Make(control);
-		} else if (!this.make.isFocused()) {
-			this.make.requestFocus();
+		if (this.subFrame == null) {
+			this.subFrame = new Sub_Frame(control, "Room_Make");
+		} else if (!this.subFrame.isDisplayable()) {
+			this.subFrame = new Sub_Frame(control, "Room_Make");
+		} else if (!this.subFrame.isFocused()) {
+			this.subFrame.requestFocus();
+		}
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
 		}
 	}
 
 	public void search_Room() {
-		if (this.search == null) {
-			this.search = new Room_Search(control);
-		} else if (!this.search.isDisplayable()) {
-			this.search = new Room_Search(control);
-		} else if (!this.search.isFocused()) {
-			this.search.requestFocus();
+		if (this.subFrame == null) {
+			this.subFrame = new Sub_Frame(control, "Room_Search");
+		} else if (!this.subFrame.isDisplayable()) {
+			this.subFrame = new Sub_Frame(control, "Room_Search");
+		} else if (!this.subFrame.isFocused()) {
+			this.subFrame.requestFocus();
+		}
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
 		}
 	}
 
 	public void user_Logout() {
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
+		}
 		this.control.user_Logout();
 	}
 	
 	public void chara_Change() {
-		for (int i = 0; i < constant.C_I_Route.length; i++) {
-			if (chara_Button.get(i).isSelected()) {
-				this.chara = i;
-				this.repaint();
-				return;
+		if (!constant.delay) {
+			new Audio(constant.M_Route[3], false);
+			for (int i = 0; i < constant.C_I_Route.length; i++) {
+				if (chara_Button.get(i).isSelected()) {
+					this.control.setChara(i);
+					constant.delay = true;
+					this.repaint();
+					return;
+				}
 			}
+			constant.delay = true;
 		}
 	}
 

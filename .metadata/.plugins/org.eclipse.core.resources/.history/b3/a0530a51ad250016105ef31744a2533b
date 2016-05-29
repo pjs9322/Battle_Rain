@@ -1,0 +1,31 @@
+package display_Sub;
+
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+
+import main.constant;
+import control.Control;
+
+abstract public static class Sub_Frame extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+	
+	private Sub_Panel panel;
+	
+	public Sub_Frame(Control control, String name, int sub_Width, int sub_Height) {
+		
+		Class<?> Next_Display;
+		try {
+			Next_Display = Class.forName(constant.V_Route + name);
+			panel = (Sub_Panel) Next_Display.newInstance();
+			panel.init_View(this, control);
+			this.add(panel);
+		} catch (Exception e) {}
+
+		this.setSize(sub_Width, sub_Height);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.setAlwaysOnTop(true);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+	}
+}

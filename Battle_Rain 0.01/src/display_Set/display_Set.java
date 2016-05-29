@@ -12,23 +12,28 @@ import javax.swing.JPanel;
 
 import view.Display;
 import main.constant;
+import model.Audio;
 import control.Control;
+import display_Sub.Sub_Frame;
 
-public abstract class display_Set extends JPanel implements ActionListener, Runnable {
+abstract public class display_Set extends JPanel implements ActionListener, Runnable {
 	private static final long serialVersionUID = 1L;
 	protected Toolkit toolkit = Toolkit.getDefaultToolkit();
 	
-	protected ActionListener actionListener;
 	protected Display display;
 	protected Control control;
 	
-	public Thread myThread;
+	protected Thread myThread;
 
 	private display_Set view_style;
+	
+	protected Audio sound;
+	protected Sub_Frame subFrame;
 
 	private Image buff_Image;											// 더블 버퍼링용 버퍼 이미지
 	private Graphics buff_G;											// 더블 버퍼링용 버퍼 그래픽
 
+	
 	public display_Set() {
 		this.view_style = this;
 		this.myThread = new Thread(this);
@@ -59,6 +64,10 @@ public abstract class display_Set extends JPanel implements ActionListener, Runn
 	}
 	
 	public void exit() {
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
+		}
 		System.exit(1);
 	}
 
