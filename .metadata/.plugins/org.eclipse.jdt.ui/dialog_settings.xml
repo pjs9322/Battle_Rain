@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<item value="C:\Users\PJS\Documents\GitHub\Battle_Rain\Battle_Rain 0.01" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateSimilarElements"/>

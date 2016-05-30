@@ -1,0 +1,241 @@
+package display_Set;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.im.InputContext;
+import java.util.Vector;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import main.constant;
+import model.Audio;
+import view.Display;
+
+import com.mongodb.DBObject;
+
+import control.Client;
+import control.Control;
+import control.Control.RWord;
+import control.Server;
+
+public class Room extends display_Set implements Runnable {
+	private static final long serialVersionUID = 1L;
+
+	private RainField rainField = new RainField();
+	public RainField getRainField() { return rainField;	}
+	public void setRainField(RainField rainField) { this.rainField = rainField; }
+
+	
+	private JTextField texts = new JTextField(40);
+
+	private JButton startButton = new JButton();
+	private JButton readyButton = new JButton();
+	private JButton enterButton = new JButton();
+	private JButton exitButton = new JButton();
+
+	private Thread wordRain = new Thread(getRainField());
+	private boolean playing = false; // true 일 때 게임중
+	public boolean getPlayingState() { return playing; } 
+	
+	private Server server;
+	private Client client;
+
+	public Room() {
+		super();
+		this.add(getRainField());
+		
+		this.add(startButton);
+		this.add(readyButton);
+		this.add(enterButton);
+		this.add(exitButton);
+		this.add(texts);
+		this.texts.registerKeyboardAction(this, "insert_Word",
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		if (this.playing) {
+			g.drawImage(toolkit.getImage(constant.R_I_Route[1]), 0, 0, this);
+		} else {
+			g.drawImage(toolkit.getImage(constant.R_I_Route[0]), 0, 0, this);
+		}
+		
+		for (int i = 0; i< this.getRainField().userList.size(); i++) {
+			g.drawString((String) this.getRainField().userList.get(i).get("name"), 682 + (i * 32), 82 + (i * 32));
+			g.drawString((String) "점수", 682, 105 + (i * 32));
+			g.setColor(Color.red);
+			g.drawString("♥ ♥ ♥", 682, 11 + (i * 32));
+		}
+	}
+
+	@Override
+	public void init_Parts() {
+		this.getRainField().setBounds(20, 40, 535, 473);
+		
+		this.texts.setBounds(210, 541, 305, 35);
+		this.texts.setBorder(null);
+		try {  
+	           InputContext inCtx = texts.getInputContext();
+	           Character.Subset[] subset = { Character.UnicodeBlock.HANGUL_SYLLABLES };  
+	            	inCtx.setCharacterSubsets( subset );
+	    } catch (Exception e) {}
+
+		this.startButton.setBounds(89, 536, 96, 44);
+		this.startButton.setBorderPainted(false);
+		this.startButton.setIcon(new ImageIcon(constant.R_I_Route[4]));
+		this.startButton.setPressedIcon(new ImageIcon(constant.R_I_Route[5]));
+		this.startButton.addActionListener(this);
+		this.startButton.setActionCommand("game_Start");
+		
+		this.readyButton.setBounds(89, 536, 96, 44);
+		this.readyButton.setBorderPainted(false);
+		this.readyButton.setIcon(new ImageIcon(constant.R_I_Route[6]));
+		this.readyButton.setPressedIcon(new ImageIcon(constant.R_I_Route[7]));
+		this.readyButton.addActionListener(this);
+		this.readyButton.setActionCommand("game_Ready");
+		
+		this.enterButton.setBounds(527, 541, 35, 35);
+		this.enterButton.setContentAreaFilled(false);
+		this.enterButton.addActionListener(this);
+		this.enterButton.setActionCommand("insert_Word");
+		
+		this.exitButton.setBounds(20, 535, 45, 45);
+		this.exitButton.setContentAreaFilled(false);
+		this.exitButton.addActionListener(this);
+		this.exitButton.setActionCommand("room_exit");
+
+		this.texts.requestFocus();
+	}
+
+	public void init_View(Display display, Control control) {
+		super.init_View(display, control);
+		this.myThread.start();
+	}
+	
+	public void game_Ready() {
+		if (!this.playing) {
+			if (!constant.delay) {
+				new Audio(constant.M_Route[4], false);
+				constant.delay = true;
+			}
+		}
+	}
+	
+	public void game_Start() {
+		if (!this.playing) {
+			if (!constant.delay) {
+				new Audio(constant.M_Route[4], false);
+				constant.delay = true;
+			}
+			if(this.getControl().getRoomState()) {
+				this.server.gameStart();
+			}
+			System.out.println("Game Start");
+			this.playing = true;
+			this.getRainField().init_View(display, control);
+			this.getRainField().word_Make();
+			this.remove(startButton);
+			this.remove(readyButton);
+			this.remove(exitButton);
+			this.display.BGM.stop();
+			this.display.BGM = new Audio(constant.M_Route[2],true);
+			this.texts.requestFocus();
+			this.repaint();
+			this.wordRain.start();
+		}
+	}
+	
+	public void insert_Word() {
+		String text = texts.getText();
+		if(this.control.getRoomState()) {
+			this.server.sendToAll(text);
+		} else {
+			this.client.send(text);
+		}
+		control.removeWord(text);
+		this.texts.setText(null);
+	}
+	
+	public void room_exit() {
+		if (!constant.delay) {
+			new Audio(constant.M_Route[4], false);
+			constant.delay = true;
+		}
+		this.control.room_exit();
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if(this.control.getRoomState()) {
+			this.remove(readyButton);
+			this.server = new Server();
+			this.server.start(this.getRainField());
+		} else {
+			this.remove(startButton);
+			this.client = new Client();
+			this.client.start(this.getControl().getUserData(), this.getControl().getRoomIP(), this);
+		}
+	}
+	
+	class gamePlay implements Runnable {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+		}
+	}
+	
+	public class RainField extends display_Set {
+		private static final long serialVersionUID = 1L;
+
+		public Vector<DBObject> userList = new Vector<DBObject>();
+		
+		@Override
+		public void draw(Graphics g) {
+			if (playing) {
+				g.drawImage(toolkit.getImage(constant.R_I_Route[3]), 0, 0, this);
+			} else {
+				g.drawImage(toolkit.getImage(constant.R_I_Route[2]), 0, 0, this);
+			}
+			
+			if (this.control != null) {
+				if (this.control.getRoomState()) {
+					for (RWord word: this.control.getWordList()) {
+						g.drawString(word.word, word.X, word.Y);
+					}
+//				} else {
+//					for (RWord word: client.getWordList()) {
+//						g.drawString(word.word, word.X, word.Y);
+//					}
+				}
+			}
+		}
+		
+		@Override
+		public void init_Parts() {}	
+		
+		public void word_Make() {
+			this.control.word_Make();
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				while (true) {
+					for (RWord word: this.control.getWordList()) {
+						word.Y += 2;
+					}
+					this.repaint();
+					Thread.sleep(100);
+				}
+			} catch (InterruptedException e) {}
+		}	
+	}
+}

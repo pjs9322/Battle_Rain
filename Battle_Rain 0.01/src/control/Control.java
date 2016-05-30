@@ -18,9 +18,11 @@ import com.mongodb.DBObject;
 public class Control {
 	private Database db;
 	private DBObject userData;
-	public String getUserName() { return (String) this.userData.get("name"); }
-	public int getChara() { return (int) this.userData.get("icon"); }
-	public void setChara(int Chara) { this.userData.put("icon", Chara); }
+	public DBObject getUserData() { return userData; }
+	public void setChara(int chara) { this.userData.put("icon", chara); }
+
+	private DBObject roomData;
+	public String getRoomIP() { return (String) this.roomData.get("hostIP"); }
 	
 	private boolean roomState; // false 가 클라이언트
 	public boolean getRoomState() {return roomState;}
@@ -33,6 +35,7 @@ public class Control {
 	
 	public Control() {
 		this.userData = null;
+		this.roomData = null;
 		this.roomState = false;
 
 		this.db = new Database();
@@ -41,19 +44,19 @@ public class Control {
 	
 	public String user_Login(String userID, String password) {
 		String alart = null;
-		if (userID.equals("") || password.equals("")) {
-			alart = "ID와 비밀번호를 입력해주세요.";
-			return alart;
-		}
-		//입력받은 ID로 DB에 있는 Object(column)를 받아온다.
-		DBObject userData = db.find("User", "id", userID);
-		//회원가입된 유저가 존재하고 비밀번호가 일치하면 대기실로 진입한다.
-		if (userData != null && userData.get("password").equals(password)) {
-			this.userData = userData;
+//		if (userID.equals("") || password.equals("")) {
+//			alart = "ID와 비밀번호를 입력해주세요.";
+//			return alart;
+//		}
+//		//입력받은 ID로 DB에 있는 Object(column)를 받아온다.
+//		DBObject userData = db.find("User", "id", userID);
+//		//회원가입된 유저가 존재하고 비밀번호가 일치하면 대기실로 진입한다.
+//		if (userData != null && userData.get("password").equals(password)) {
+//			this.userData = userData;
 			this.nextState = STATE.Wait;
-		} else {
-			alart = "계정 정보가 일치하지 않습니다.";
-		}
+//		} else {
+//			alart = "계정 정보가 일치하지 않습니다.";
+//		}
 		return alart;
 	}
 	
@@ -75,15 +78,20 @@ public class Control {
 			return alart;
 		}
 		//입력받은 ID가 DB에 존재하지 않으면 계정을 DB에 저장한다.
-		DBObject userData = db.find("User", "id", userID);
-		if (userData == null) {
-			BasicDBObject tempBasicDBObj = new BasicDBObject("id", userID)
-					.append("password", password)
-					.append("name", name)
-					.append("icon", 0);		//캐릭터 아이콘 [0,7] default 0
-			db.insert("User",  tempBasicDBObj);
+		DBObject userData1 = db.find("User", "id", userID);
+		DBObject userData2 = db.find("User", "name", name);
+		if (userData1 == null) {
+			if (userData2 == null) {
+				BasicDBObject tempBasicDBObj = new BasicDBObject("id", userID)
+						.append("password", password)
+						.append("name", name)
+						.append("icon", 0);		//캐릭터 아이콘 [0,7] default 0
+				db.insert("User",  tempBasicDBObj);
+			} else {
+				alart = "중복된 닉네임니다.";
+			}
 		} else {
-			alart = "계정 ID가 중복됩니다.";
+			alart = "ID가 중복됩니다.";
 		}
 		return alart;
 	}
@@ -132,6 +140,7 @@ public class Control {
 			DBObject roomData = db.find("Room", "rname", roomName);
 			if (roomData != null) {
 				this.nextState = STATE.Room;
+				this.roomData = roomData;
 			} else {
 				alart = "존재하지 앖는 방입니다.";
 			}
@@ -152,7 +161,7 @@ public class Control {
 			temp[i] = (String) cursor.next().get("word");
 		}
 		
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 2000; i++) {
 			wordList.add(new RWord(temp[(int) (Math.random()*5887)]));
 		}
 	}
@@ -172,13 +181,15 @@ public class Control {
 	
 	public class RWord {
 		public String word;
+		public boolean effect;
 		public int X;
 		public int Y;
 		
 		public RWord (String word) {
 			this.word = word;
+			this.effect = Math.random() < 0.05;
 			this.X = (int) (Math.random()*490);
-			this.Y = (int) -(Math.random()*2000);
+			this.Y = (int) -(Math.random()*4000);
 		}
 	}
 }

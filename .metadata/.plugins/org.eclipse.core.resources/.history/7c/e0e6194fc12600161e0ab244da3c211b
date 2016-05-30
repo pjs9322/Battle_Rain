@@ -1,0 +1,93 @@
+package control;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.Vector;
+
+import control.Control.RWord;
+import display_Set.Room;
+import display_Set.Room.RainField;
+
+public class Client {
+	private String msg;
+	private Socket socket;
+	private DataOutputStream output;
+	private Vector<RWord> wordList = new Vector<RWord>();
+	public Vector<RWord> getWordList() { return wordList; }
+	private Room room;	
+	
+	public Client (Room room) {
+		this.room = room;
+	}
+
+	public void start() {
+		try {
+			socket = new Socket(room.getControl().getRoomIP(), 9988);
+			new ObjectOutputStream(this.socket.getOutputStream()).writeObject(room.getControl().getUserData());
+			
+			output = new DataOutputStream(this.socket.getOutputStream());
+
+			ClientReceiver clientReceiver = new ClientReceiver(socket);
+			ClientObjectReceiver clientFieldReceiver = new ClientObjectReceiver(socket);
+			clientReceiver.start();
+			clientFieldReceiver.start();
+		} catch (IOException e) {}
+	}
+
+	public void send(String text) {
+		// TODO Auto-generated method stub
+		this.msg = text;
+		try {
+			if(msg != null) {
+				output.writeUTF(msg);
+				msg = null;
+			}
+		} catch (IOException e) {}
+	}
+
+	class ClientReceiver extends Thread {
+		Socket socket;
+		DataInputStream input;
+
+		public ClientReceiver(Socket socket) {
+			this.socket = socket;
+			try {
+				input = new DataInputStream(this.socket.getInputStream());
+			} catch (IOException e) {}
+		}
+
+		@Override
+		public void run() {
+			while (input != null) {
+				try {
+					System.out.println(input.readUTF());
+				} catch (IOException e) {}
+			}
+		}
+	}
+	
+	class ClientObjectReceiver extends Thread {
+		Socket socket;
+		ObjectInputStream input;
+
+		public ClientObjectReceiver(Socket socket) {
+			this.socket = socket;
+			try {
+				input = new ObjectInputStream(this.socket.getInputStream());
+			} catch (IOException e) {}
+		}
+
+		@Override
+		public void run() {
+			try {
+					room.getControl().setWordList((Vector<RWord>)input.readObject());
+					room.game_Start();
+			} catch (IOException | ClassNotFoundException e) {}
+		}
+	}
+
+}

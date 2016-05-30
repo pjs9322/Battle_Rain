@@ -42,11 +42,11 @@ public class Wait extends display_Set {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(toolkit.getImage(constant.W_I_Route[0]), 0, 0, this);
-		if (this.control != null) {
-			g.drawImage(toolkit.getImage(constant.C_I_Route[this.control.getChara()]), 0, 0, this);
-			g.setColor(Color.WHITE);
-			g.drawString(this.control.getUserName(), 90, 305);
-		}
+//		if (this.control != null) {
+//			g.drawImage(toolkit.getImage(constant.C_I_Route[(int) this.control.getUserData().get("icon")]), 0, 0, this);
+//			g.setColor(Color.WHITE);
+//			g.drawString((String) this.control.getUserData().get("name"), 90, 305);
+//		}
 	}
 
 	@Override
